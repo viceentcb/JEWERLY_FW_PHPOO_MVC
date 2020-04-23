@@ -5,7 +5,7 @@ require 'autoload.php';
 // include(UTILS . "utils.inc.php");
 include(UTILS . "common.inc.php");
 // include(UTILS . "upload.inc.php");
-// include(UTILS . "mail.inc.php");
+include(UTILS . "mail.inc.php");
 
 if (PRODUCTION) { //estamos en producción
     ini_set('display_errors', '1');
@@ -32,6 +32,8 @@ function handlerRouter()
 
     if (!empty($_GET['function'])) {
         $URI_function = $_GET['function'];
+        print($URI_function);
+
     } else {
         $URI_function = 'list_contact';
     }

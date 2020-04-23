@@ -14,7 +14,8 @@
 			loadView('modules/contact/view/','contact.html');
 			require(VIEW_PATH_INC . "footer.php");
 		}
-		// function send_cont(){
+		function send_cont(){
+			print("memo");	
 		// 	$data_mail = array();
 		// 	$data_mail = json_decode($_POST['fin_data'],true);
 		// 	$arrArgument = array(
@@ -47,6 +48,6 @@
 		// 	} catch (Exception $e) {
 		// 		echo "<div class='alert alert-error'>Server error. Try later...</div>";
 		// 	}
-		// }
+		}
 
 	}

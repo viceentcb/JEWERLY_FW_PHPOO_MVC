@@ -253,7 +253,7 @@ a:hover {
 }
 
 input[type="button"],
-input[type="submit"] {
+input[id="send_contact"] {
     transition: 0.5s all;
     -webkit-transition: 0.5s all;
     -moz-transition: 0.5s all;
@@ -268,7 +268,7 @@ input[type="email"],
 input[type="text"],
 input[type=password],
 input[type="button"],
-input[type="submit"],
+input[id="send_contact"],
 textarea {
     font-family: 'Montserrat', sans-serif;
     transition: 0.5s all;
@@ -778,7 +778,7 @@ border: 4px solid #d24055;
 .outs_more-buttn a:hover,
 .w3layouts-jewel-shop a:hover,
 .click-me:hover,
-button[type=submit]:hover {
+button[id=send_contact]:hover {
     background: #000;
     color: #fff;
 }
@@ -1450,7 +1450,7 @@ h4.typo-sub-heading {
 }
 
 .click-me,
-button[type=submit] {
+button[id=send_contact] {
     font-size: 13px;
     color: #fff;
     text-decoration: none;
@@ -2018,7 +2018,7 @@ h5#exampleModalLabel,
         padding: .7em .7em;
     }
     .click-me,
-    button[type=submit] {
+    button[id=send_contact] {
         padding: 11px 13px;
     }
     figure.snip1321 h2 {
@@ -2337,7 +2337,7 @@ h5#exampleModalLabel,
         font-size: 14px;
     }
     .click-me,
-    button[type=submit] {
+    button[id=send_contact] {
         padding: 9px 10px;
     }
     .title {

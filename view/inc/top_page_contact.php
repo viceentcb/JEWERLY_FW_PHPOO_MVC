@@ -19,8 +19,9 @@
 
    <link href="<?php echo CSS_PATH ?>style.css" rel="stylesheet" type="text/css" />
 
-   <!-- <script src="module/contact/model/contact.js"></script> -->
+   <script src="<?php echo JS_VIEW_CONTACT ?>contact.js"></script>
 
+   
 </body>
 
 
