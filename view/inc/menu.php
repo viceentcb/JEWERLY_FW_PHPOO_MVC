@@ -41,7 +41,7 @@
                         <a href="index.php?page=controller_gallery&op=list" data-tr="Galeria" class="nav-link"></a>
                         <a href="index.php?page=controller_services&op=list" data-tr="Servicios" class="nav-link"></a>
                         <a href="index.php?page=controller_aboutus&op=list" data-tr="Nosotros" class="nav-link"></a>
-                        <a href="<?php amigable('?module=contact&function=list_contact'); ?>" class="nav-link">Contact</a>
+                        <a href="<?php amigable('?module=contact&function=contact'); ?>" class="nav-link">Contact</a>
                      </div>
                   </li>
 

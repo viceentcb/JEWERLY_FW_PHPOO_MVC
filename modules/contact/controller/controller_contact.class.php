@@ -58,4 +58,5 @@ class controller_contact
 			echo "<div class='alert alert-error'>Server error. Try later...</div>";
 		}
 	}
+
 }

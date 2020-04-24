@@ -26,7 +26,7 @@ function handlerRouter()
     } else {
         $URI_module = 'contact';
         /////PREGUNTAR
-        echo '<script>window.location.href = "./contact/list_contact/";</script>';
+        echo '<script>window.location.href = "./contact/contact/";</script>';
         /////PREGUNTAR
     }
 
@@ -34,7 +34,7 @@ function handlerRouter()
         $URI_function = $_GET['function'];
 
     } else {
-        $URI_function = 'list_contact';
+        $URI_function = 'contact';
     }
     handlerModule($URI_module, $URI_function);
 }
@@ -61,7 +61,10 @@ function handlerModule($URI_module, $URI_function)
             } else {
                 //die($URI_module . ' - Controlador no encontrado');
                 // require_once(VIEW_PATH_INC . "menu.php");
-
+                require(VIEW_PATH_INC . "top_page_menu.php");
+                require(VIEW_PATH_INC . "top_page.php");
+        
+                require(VIEW_PATH_INC . "menu.php");
                 require_once(VIEW_PATH_INC . "error404.php");
                 require_once(VIEW_PATH_INC . "footer.php");
             }
@@ -71,6 +74,10 @@ function handlerModule($URI_module, $URI_function)
     }
     if (!$exist) {
         // require_once(VIEW_PATH_INC . "menu.php");
+        require(VIEW_PATH_INC . "top_page_menu.php");
+		require(VIEW_PATH_INC . "top_page.php");
+
+		require(VIEW_PATH_INC . "menu.php");
         require_once(VIEW_PATH_INC . "error404.php");
         require_once(VIEW_PATH_INC . "footer.php");
     }
@@ -93,6 +100,10 @@ function handlerfunction($module, $obj, $URI_function){
     if (!$exist) {
 
         // require_once(VIEW_PATH_INC . "menu.php");
+        require(VIEW_PATH_INC . "top_page_menu.php");
+		require(VIEW_PATH_INC . "top_page.php");
+
+		require(VIEW_PATH_INC . "menu.php");
         require_once(VIEW_PATH_INC . "error404.php");
         require_once(VIEW_PATH_INC . "footer.php");
     } else {
