@@ -32,7 +32,6 @@ function handlerRouter()
 
     if (!empty($_GET['function'])) {
         $URI_function = $_GET['function'];
-        print($URI_function);
 
     } else {
         $URI_function = 'list_contact';

@@ -38,12 +38,21 @@ $(document).ready(function(){
         if (result) {
 
             var data = $('#contactus').serialize();
-            console.log(data)
+            // console.log(data)
 
+
+            form("../../index.php?module=contact&function=send_cont", data)
+            .then(function(data){
+                // console.log(data)
+                // console.log(JSON.parse(data)['message'])
             
-            form("?module=contact&function=send_cont", data)
-            // $.get(("?module=contact&function=send_cont"),{"fin_data":data},function(data,event){
-            // })
+                if((JSON.parse(data)['message'])=='Queued. Thank you.'){
+                    console.log('hola')
+                }else{
+                    console.log('adios');
+                }
+
+            })
         }
     });
 
