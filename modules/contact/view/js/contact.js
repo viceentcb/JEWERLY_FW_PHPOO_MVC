@@ -43,7 +43,7 @@ $(document).ready(function(){
 
             form("../../index.php?module=contact&function=send_cont", data)
             .then(function(data){
-                // console.log(data)
+                console.log(data)
                 // console.log(JSON.parse(data)['message'])
             
                 if((JSON.parse(data)['message'])=='Queued. Thank you.'){

@@ -67,8 +67,14 @@ function enviar_email($arr)
 
 function send_mailgun($from, $email, $subject, $html)
 {
+    $apis=parse_ini_file("gitignore.ini");
+    $api_key=$apis['api_key'];
+    $api_url=$apis['api_url'];
+  
+
     $config = array();
-    
+    $config['api_key'] = $api_key; //API Key
+    $config['api_url'] = "https://api.mailgun.net/v2/".$api_url.".mailgun.org/messages"; //API Base URL
 
     $message = array();
     $message['from'] = "$from";
