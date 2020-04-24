@@ -8,6 +8,7 @@
    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js">
    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
+   <script type="text/javascript" src="<?php echo JS_PATH ?>main.js"></script>
 
    <!--meta tags -->
    <meta charset="UTF-8">

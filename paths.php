@@ -47,4 +47,4 @@ define('JS_VIEW_CONTACT', SITE_PATH . 'modules/contact/view/js/');
 
 
 //amigables
-define('URL_AMIGABLES', FALSE);
+define('URL_AMIGABLES', TRUE);

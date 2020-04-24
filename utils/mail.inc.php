@@ -74,7 +74,7 @@ function send_mailgun($from, $email, $subject, $html)
 
     $config = array();
     $config['api_key'] = $api_key; //API Key
-    $config['api_url'] = "https://api.mailgun.net/v2/".$api_url.".mailgun.org/messages"; //API Base URL
+    $config['api_url'] = "https://api.mailgun.net/v2/".$api_url."/messages"; //API Base URL
 
     $message = array();
     $message['from'] = "$from";

@@ -41,7 +41,7 @@ $(document).ready(function(){
             // console.log(data)
 
 
-            form("../../index.php?module=contact&function=send_cont", data)
+            form(amigable("?module=contact&function=send_cont"), data)
             .then(function(data){
                 console.log(data)
                 // console.log(JSON.parse(data)['message'])
