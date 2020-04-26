@@ -41,15 +41,20 @@ $(document).ready(function(){
             // console.log(data)
 
 
-            form(amigable("?module=contact&function=contact"), data)
+            form(amigable("?module=contact&function=send_cont"), data)
             .then(function(data){
                 console.log(data)
                 // console.log(JSON.parse(data)['message'])
             
                 if((JSON.parse(data)['message'])=='Queued. Thank you.'){
-                    console.log('hola')
+                    // console.log('hola')
+                    toastr.success("We sent the email, please check your inbox.", "Email sent.");
+                    window.setTimeout(function(){
+                        document.location.href = "/FRAMEWORK_JOYAS/";
+                    },2000)
+
                 }else{
-                    console.log('adios');
+                    toastr.error("A failure has been made when sending your message","Email Not Sent.")
                 }
 
             })

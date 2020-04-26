@@ -1,6 +1,8 @@
 <?php
     function amigable($url, $return = false) {
         $amigableson = URL_AMIGABLES;
+        // print('amigables');
+        // print($amigableson);
         $link = "";
         if ($amigableson) {
             $url = explode("&", str_replace("?", "", $url));

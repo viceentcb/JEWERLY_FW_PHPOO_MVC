@@ -3,10 +3,11 @@
 
 <head>
 
+   <!-- TOASTR -->
+   <script type="text/javascript" src="<?php echo TOASTR_PATH ?>build/toastr.min.js"></script>
+   <link rel="stylesheet" href="<?php echo TOASTR_PATH ?>build/toastr.css">
+   <!-- TOASTR -->
 
-
-   <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js">
-   <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
    <script type="text/javascript" src="<?php echo JS_PATH ?>main.js"></script>
 

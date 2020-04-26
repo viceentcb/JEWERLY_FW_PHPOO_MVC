@@ -13,6 +13,9 @@ define('CSS_PATH', SITE_PATH . 'view/css/');
 //JS
 define('JS_PATH', SITE_PATH . 'view/js/');
 
+//TOASTR
+define('TOASTR_PATH', SITE_PATH . 'view/toastr/');
+
 //VENDOR
 define('VENDOR_PATH', SITE_PATH . 'view/vendor/');
 

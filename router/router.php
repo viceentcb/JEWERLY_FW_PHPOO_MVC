@@ -26,7 +26,7 @@ function handlerRouter()
     } else {
         $URI_module = 'contact';
         /////PREGUNTAR
-        echo '<script>window.location.href = "./contact/contact/";</script>';
+        echo '<script>window.location.href = "./contact/contact";</script>';
         /////PREGUNTAR
     }
 
