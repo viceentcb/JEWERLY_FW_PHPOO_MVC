@@ -21,20 +21,33 @@ $_SESSION['module'] = "";
 
 function handlerRouter()
 {
+
+    /// entrara cuando en el get haya algo
     if (!empty($_GET['module'])) {
-        $URI_module = $_GET['module'];
+
+        //si viene de algun js entrara de aqui ya que se lo pasamos por POST
+        if (!empty($_POST['module'])) {
+            $URI_module = $_POST['module'];
+
+            // Si viene del menu entrará aqui ya que se lo pasa por $_GET
+        } else {
+            $URI_module = $_GET['module'];
+        }
     } else {
+
         $URI_module = 'contact';
         /////PREGUNTAR
-        echo '<script>window.location.href = "./contact/contact";</script>';
+        echo '<script>window.location.href = "./contact/";</script>';
         /////PREGUNTAR
     }
 
-    if (!empty($_GET['function'])) {
-        $URI_function = $_GET['function'];
+    /// si viene de js entrará aqui ya que se lo pasamos por POST
+    if (!empty($_POST['function'])) {
+        $URI_function = $_POST['function'];
 
+        // si no, la funcion sera el nombre del modulo
     } else {
-        $URI_function = 'contact';
+        $URI_function = $URI_module;
     }
     handlerModule($URI_module, $URI_function);
 }
@@ -63,7 +76,7 @@ function handlerModule($URI_module, $URI_function)
                 // require_once(VIEW_PATH_INC . "menu.php");
                 require(VIEW_PATH_INC . "top_page_menu.php");
                 require(VIEW_PATH_INC . "top_page.php");
-        
+
                 require(VIEW_PATH_INC . "menu.php");
                 require_once(VIEW_PATH_INC . "error404.php");
                 require_once(VIEW_PATH_INC . "footer.php");
@@ -75,24 +88,30 @@ function handlerModule($URI_module, $URI_function)
     if (!$exist) {
         // require_once(VIEW_PATH_INC . "menu.php");
         require(VIEW_PATH_INC . "top_page_menu.php");
-		require(VIEW_PATH_INC . "top_page.php");
+        require(VIEW_PATH_INC . "top_page.php");
 
-		require(VIEW_PATH_INC . "menu.php");
+        require(VIEW_PATH_INC . "menu.php");
         require_once(VIEW_PATH_INC . "error404.php");
         require_once(VIEW_PATH_INC . "footer.php");
     }
 }
 
-function handlerfunction($module, $obj, $URI_function){
+function handlerfunction($module, $obj, $URI_function)
+{
+
+
 
 
     $functions = simplexml_load_file(MODULES_PATH . $module . "/resources/function.xml");
     $exist = false;
 
+
+    //ahora le pasamos el nombre de la funcion y comprobamos que esté en name de el xml
+    //asi comprobaremos si la funcion existe o no
     foreach ($functions->function as $function) {
-        if (($URI_function === (string) $function->uri)) {
+        if (($URI_function === (string) $function->name)) {
             $exist = true;
-            $event = (string) $function->name;
+            $event = $URI_function;
             break;
         }
     }
@@ -101,12 +120,14 @@ function handlerfunction($module, $obj, $URI_function){
 
         // require_once(VIEW_PATH_INC . "menu.php");
         require(VIEW_PATH_INC . "top_page_menu.php");
-		require(VIEW_PATH_INC . "top_page.php");
+        require(VIEW_PATH_INC . "top_page.php");
 
-		require(VIEW_PATH_INC . "menu.php");
+        require(VIEW_PATH_INC . "menu.php");
         require_once(VIEW_PATH_INC . "error404.php");
         require_once(VIEW_PATH_INC . "footer.php");
     } else {
+
+        //y al final llamaremos a esa funcion
         call_user_func(array($obj, $event));
     }
 }

@@ -6,7 +6,8 @@ class controller_contact
 		$_SESSION['module'] = "contact";
 	}
 
-	function list_contact()
+	//funcion que pinta el contact
+	function contact()
 	{
 		// require(VIEW_PATH_INC . "menu.php");
 		require(VIEW_PATH_INC . "top_page_contact.php");
@@ -20,17 +21,17 @@ class controller_contact
 	function send_cont()
 	{
 
-		//echo ("SEND_EMAIL");
-		//die();
+		parse_str ($_POST['data'], $matriz);
+		// echo($matriz['cname']);
 
 		$arrArgument = array(
 
 			'type' => 'contact',
 			'token' => '',
-			'inputName' => $_POST['cname'],
-			'inputEmail' => $_POST['cemail'],
-			'inputSubject' => $_POST['asunto'],
-			'inputMessage' => $_POST['message']
+			'inputName' => $matriz['cname'],
+			'inputEmail' => $matriz['cemail'],
+			'inputSubject' => $matriz['asunto'],
+			'inputMessage' => $matriz['message']
 		);
 
 		
@@ -47,10 +48,10 @@ class controller_contact
 		$arrArgument = array(
 			'type' => 'admin',
 			'token' => '',
-			'inputName' => $_POST['cname'],
-			'inputEmail' => $_POST['cemail'],
-			'inputSubject' => $_POST['asunto'],
-			'inputMessage' => $_POST['message']
+			'inputName' => $matriz['cname'],
+			'inputEmail' => $matriz['cemail'],
+			'inputSubject' => $matriz['asunto'],
+			'inputMessage' => $matriz['message']
 		);
 		try{
 		    enviar_email($arrArgument);

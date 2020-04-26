@@ -40,11 +40,13 @@ $(document).ready(function(){
             var data = $('#contactus').serialize();
             // console.log(data)
 
+            var info= {module:'contact',function:'send_cont',data:data}
 
-            form(amigable("?module=contact&function=send_cont"), data)
+            // alert(info['module']);
+            form(amigable("?"), info)
             .then(function(data){
                 console.log(data)
-                // console.log(JSON.parse(data)['message'])
+                console.log(JSON.parse(data))
             
                 if((JSON.parse(data)['message'])=='Queued. Thank you.'){
                     // console.log('hola')
