@@ -47,7 +47,11 @@ function handlerRouter()
 
         // si no, la funcion sera el nombre del modulo
     } else {
-        $URI_function = $URI_module;
+        if (!empty($_GET['function'])) {
+            $URI_function = $_GET['function'];
+        } else {
+            $URI_function = $URI_module;
+        }
     }
     handlerModule($URI_module, $URI_function);
 }
