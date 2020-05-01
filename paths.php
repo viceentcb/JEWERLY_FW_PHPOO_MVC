@@ -34,6 +34,9 @@ define('MODEL_PATH', SITE_ROOT . 'model/');
 //MODULES
 define('MODULES_PATH', SITE_ROOT . 'modules/');
 
+//VIEW
+define('VIEW_PATH', SITE_ROOT . 'view/');
+
 //INC
 define('VIEW_PATH_INC', SITE_ROOT . 'view/inc/');
 
@@ -47,13 +50,31 @@ define('UTILS', SITE_ROOT . 'utils/');
 
 
 //MODEL_CONTACT
-define('UTILS_CONTACT', SITE_ROOT . 'modules/contact/utils/');
+// define('UTILS_CONTACT', SITE_ROOT . 'modules/contact/utils/');
 // define('MODEL_PATH_CONTACT', SITE_ROOT . 'modules/contact/model/');
 // define('DAO_CONTACT', SITE_ROOT . 'modules/contact/model/DAO/');
 // define('BLL_CONTACT', SITE_ROOT . 'modules/contact/model/BLL/');
 // define('MODEL_CONTACT', SITE_ROOT . 'modules/contact/model/model/');
 define('JS_VIEW_CONTACT', SITE_PATH . 'modules/contact/view/js/');
 
+
+//MODEL_HOME
+// define('UTILS_HOME', SITE_ROOT . 'modules/home/utils/');
+define('MODEL_PATH_HOME', SITE_ROOT . 'modules/home/model/');
+define('DAO_HOME', SITE_ROOT . 'modules/home/model/DAO/');
+define('BLL_HOME', SITE_ROOT . 'modules/home/model/BLL/');
+define('MODEL_HOME', SITE_ROOT . 'modules/home/model/model/');
+define('JS_VIEW_HOME', SITE_PATH . 'modules/home/view/js/');
+
+
+//MENU
+// define('UTILS_HOME', SITE_ROOT . 'modules/home/utils/');
+define('MODEL_PATH_MENU', SITE_ROOT . 'view/menu/model/');
+define('VIEW_MENU', SITE_ROOT . 'view/menu/view/');
+define('DAO_MENU', SITE_ROOT . 'view/menu/model/DAO/');
+define('BLL_MENU', SITE_ROOT . 'view/menu/model/BLL/');
+define('MODEL_MENU', SITE_ROOT . 'view/menu/model/model/');
+define('JS_VIEW_MENU', SITE_PATH . 'view/menu/view/js/');
 
 //amigables
 define('URL_AMIGABLES', TRUE);

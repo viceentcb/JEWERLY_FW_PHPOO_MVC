@@ -25,19 +25,23 @@ function handlerRouter()
     /// entrara cuando en el get haya algo
     if (!empty($_GET['module'])) {
 
+
+
         //si viene de algun js entrara de aqui ya que se lo pasamos por POST
         if (!empty($_POST['module'])) {
+
             $URI_module = $_POST['module'];
 
             // Si viene del menu entrará aqui ya que se lo pasa por $_GET
         } else {
+
             $URI_module = $_GET['module'];
         }
     } else {
 
         $URI_module = 'contact';
         /////PREGUNTAR
-        // echo '<script>window.location.href = "./contact/";</script>';
+         echo '<script>window.location.href = "./contact";</script>';
         /////PREGUNTAR
     }
 
@@ -67,7 +71,13 @@ function handlerModule($URI_module, $URI_function)
         if (($URI_module === (string) $module->uri)) {
             $exist = true;
 
-            $path = MODULES_PATH . $URI_module . "/controller/controller_" . $URI_module . ".class.php";
+            if ($URI_module=='menu'){
+                $path = VIEW_PATH . $URI_module . "/controller/controller_" . $URI_module . ".class.php";
+            }else{
+                $path = MODULES_PATH . $URI_module . "/controller/controller_" . $URI_module . ".class.php";
+            }
+
+
 
             if (file_exists($path)) {
 
@@ -75,13 +85,14 @@ function handlerModule($URI_module, $URI_function)
                 require_once($path);
                 $controllerClass = "controller_" . $URI_module;
                 $obj = new $controllerClass;
+
             } else {
                 //die($URI_module . ' - Controlador no encontrado');
                 // require_once(VIEW_PATH_INC . "menu.php");
                 require(VIEW_PATH_INC . "top_page_menu.php");
                 require(VIEW_PATH_INC . "top_page.php");
 
-                require(VIEW_PATH_INC . "menu.php");
+                require(VIEW_MENU . "menu.php");
                 require_once(VIEW_PATH_INC . "error404.php");
                 require_once(VIEW_PATH_INC . "footer.php");
             }
@@ -94,7 +105,7 @@ function handlerModule($URI_module, $URI_function)
         require(VIEW_PATH_INC . "top_page_menu.php");
         require(VIEW_PATH_INC . "top_page.php");
 
-        require(VIEW_PATH_INC . "menu.php");
+        require(VIEW_MENU . "menu.php");
         require_once(VIEW_PATH_INC . "error404.php");
         require_once(VIEW_PATH_INC . "footer.php");
     }
@@ -103,11 +114,15 @@ function handlerModule($URI_module, $URI_function)
 function handlerfunction($module, $obj, $URI_function)
 {
 
+    if ($module=='menu'){
+        $functions = simplexml_load_file(VIEW_PATH . $module . "/resources/function.xml");
+        $exist = false;
+    }else{
+        $functions = simplexml_load_file(MODULES_PATH . $module . "/resources/function.xml");
+        $exist = false;
+    }
 
-
-
-    $functions = simplexml_load_file(MODULES_PATH . $module . "/resources/function.xml");
-    $exist = false;
+    
 
 
     //ahora le pasamos el nombre de la funcion y comprobamos que esté en name de el xml
@@ -126,7 +141,7 @@ function handlerfunction($module, $obj, $URI_function)
         require(VIEW_PATH_INC . "top_page_menu.php");
         require(VIEW_PATH_INC . "top_page.php");
 
-        require(VIEW_PATH_INC . "menu.php");
+        require(VIEW_MENU . "menu.php");
         require_once(VIEW_PATH_INC . "error404.php");
         require_once(VIEW_PATH_INC . "footer.php");
     } else {

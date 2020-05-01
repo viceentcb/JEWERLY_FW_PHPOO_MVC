@@ -1,4 +1,5 @@
 function amigable(url) {
+
     var link="";
     url = url.replace("?", "");
     url = url.split("&");
