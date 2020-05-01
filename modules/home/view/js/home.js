@@ -4,7 +4,7 @@ $(document).ready(function () {
     gif();
     // type();
     photo();
-    // click_cat();
+    click_cat();
     click_prod();
     // click_more();
     // check();
@@ -236,7 +236,7 @@ function click_cat() {
         var type = this.getAttribute('tip');
         // console.log(type);
         localStorage.setItem('tipo', type);
-        $(window).attr('location', 'index.php?page=controller_shop&op=list')
+        $(window).attr('location', amigable('?module=shop'))
     })
 }
 

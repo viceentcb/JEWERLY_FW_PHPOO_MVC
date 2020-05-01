@@ -162,6 +162,8 @@ function local() {
 
 
         if (type) {
+
+            alert('entra cat')
             console.log("categoria")
             ajaxForSearch("module/shop/controller/controller_shop.php?op=categoria&type=" + type)
 
