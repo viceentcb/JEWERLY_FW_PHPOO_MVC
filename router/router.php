@@ -39,9 +39,9 @@ function handlerRouter()
         }
     } else {
 
-        $URI_module = 'contact';
+        $URI_module = 'home';
         /////PREGUNTAR
-         echo '<script>window.location.href = "./contact";</script>';
+         echo '<script>window.location.href = "./home";</script>';
         /////PREGUNTAR
     }
 
