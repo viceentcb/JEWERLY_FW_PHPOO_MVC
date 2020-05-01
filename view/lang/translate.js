@@ -1,6 +1,6 @@
 
 function changeLang(lang) {
-  // console.log("entra lang");
+  console.log("entra lang");
   lang = lang || localStorage.getItem('app-lang') || 'es';
   localStorage.setItem('app-lang', lang);
   $('#language').val(lang);
@@ -27,12 +27,6 @@ function changeLang(lang) {
   }
 }
 
-// window.onload = function(){
-//   cambiarIdioma();
-//   document.getElementById('btn-es').addEventListener('click', cambiarIdioma.bind(null, 'es'));
-//   document.getElementById('btn-en').addEventListener('click', cambiarIdioma.bind(null, 'en'));
-//   document.getElementById('btn-va').addEventListener('click', cambiarIdioma.bind(null, 'va'));
-// }
 
 $(document).ready(function () {
   changeLang();
@@ -40,6 +34,7 @@ $(document).ready(function () {
   // $('#language').on("change", function () {
   $('body').on("change", "#language", function () {
 
+    console.log('cambia');
     if ($(this).val() == "es") {
       changeLang('es');
     }

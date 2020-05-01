@@ -33,6 +33,10 @@
                   <li class="nav-item">
                      <a href="index.php?page=controller_cart&op=list" class="nav-link">Cart</a>
                   </li>
+                  <li class="nav-item">
+                  <a href="<?php amigable('?module=contact'); ?>" class="nav-link" >Contact</a>
+                  </li>
+                  
                   <li class="nav-item dropdown">
                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Pages
@@ -41,22 +45,23 @@
                         <a href="index.php?page=controller_gallery&op=list" data-tr="Galeria" class="nav-link"></a>
                         <a href="index.php?page=controller_services&op=list" data-tr="Servicios" class="nav-link"></a>
                         <a href="index.php?page=controller_aboutus&op=list" data-tr="Nosotros" class="nav-link"></a>
-                        <a href="<?php amigable('?module=contact'); ?>" class="nav-link">Contact</a>
                      </div>
                   </li>
 
                   <li class="nav-item dropdown">
-                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Lenguages
-                     </a>
-                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <select class="nav-item" id="language">
-                           <option data-tr="Español" value="es" id="es"></option>
-                           <option data-tr="Inglés" value="en" id="en"></option>
-                           <option data-tr="Valenciano" value="va" id="va"></option>
-                        </select>
-                     </div>
-                  </li>
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           Lenguages
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                           <select class="nav-item" id="language">
+                              <option data-tr="Español" value="es" id="es"></option>
+                              <option data-tr="Inglés" value="en" id="en"></option>
+                              <option data-tr="Valenciano" value="va" id="va"></option>
+                           </select>
+                        </div>
+                     </li>
+
+
                </ul>
 
                <div class="sing-up-jel ">

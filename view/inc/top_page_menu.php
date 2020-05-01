@@ -103,6 +103,10 @@
    </script>
    <!-- //here ends scrolling icon -->
 
+
+   <script type="text/javascript" src="<?php echo LANG ?>translate.js"></script>
+
+
    <!-- <script src="module/menu/model/menu.js"></script> -->
    <!-- <script src="module/login/model/login.js"></script> -->
    <!-- <script src="view/activity/activity.js"></script> -->

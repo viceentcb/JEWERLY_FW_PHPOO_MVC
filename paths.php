@@ -22,6 +22,9 @@ define('VENDOR_PATH', SITE_PATH . 'view/vendor/');
 //IMAGES
 define('IMAGES_PATH', SITE_PATH . 'view/images/');
 
+//LANG
+define('LANG', SITE_PATH . 'view/lang/');
+
 //PRODUCTION
 define('PRODUCTION', true);
 
@@ -39,6 +42,9 @@ define('RESOURCES', SITE_ROOT . 'resources/');
 
 //UTILS
 define('UTILS', SITE_ROOT . 'utils/');
+
+
+
 
 //MODEL_CONTACT
 define('UTILS_CONTACT', SITE_ROOT . 'modules/contact/utils/');
