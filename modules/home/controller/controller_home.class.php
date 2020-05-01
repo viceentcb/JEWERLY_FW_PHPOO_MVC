@@ -18,6 +18,32 @@ class controller_home
 		loadView('modules/home/view/', 'home.html');
 		require(VIEW_PATH_INC . "footer.php");
 	}
-	
+
+	function gif()
+	{
+		
+			$json = array();
+			$json = loadModel(MODEL_HOME, "home_model", "GIF_model");
+			echo json_encode($json);
+		
+	}
+
+	function products()
+	{
+		
+			$json = array();
+			$json = loadModel(MODEL_HOME, "home_model", "prods_model", $_POST['data']);
+			echo json_encode($json);
+		
+	}
+
+	function click_prod()
+	{
+		
+			$json = array();
+			$json = loadModel(MODEL_HOME, "home_model", "views_model", $_POST['data']);
+			echo json_encode($json);
+		
+	}
 
 }

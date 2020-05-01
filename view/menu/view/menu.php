@@ -4,7 +4,7 @@
             <!--//navigation section -->
             <nav class="navbar navbar-expand-lg navbar-light">
                <div class="hedder-up">
-                  <h1><a class="navbar-brand" href="index.php?page=controller_home&op=list" data-tr="Joyas"></a></h1>
+                  <h1><a class="navbar-brand" href="<?php amigable('?module=home'); ?>" data-tr="Joyas"></a></h1>
                </div>
                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
@@ -12,10 +12,10 @@
                <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
                   <ul class="navbar-nav ">
                      <li class="nav-item active">
-                        <a class="nav-link" href="index.php?page=controller_home&op=list" data-tr="Inicio"> <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="<?php amigable('?module=home'); ?>" data-tr="Inicio"> <span class="sr-only">(current)</span></a>
                      </li>
                      <li class="nav-item">
-                        <a href="index.php?page=controller_shop&op=list" class="nav-link">Shop</a>
+                        <a href="<?php amigable('?module=shop'); ?>" class="nav-link">Shop</a>
                      </li>
                      <li class="nav-item">
                         <a href="index.php?page=controller_login&op=list" class="nav-link">Login</a>

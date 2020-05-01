@@ -4,4 +4,16 @@
         <name>home</name>
         <uri></uri>
     </function>
+    <function>
+        <name>gif</name>
+        <uri></uri>
+    </function>
+    <function>
+        <name>products</name>
+        <uri></uri>
+    </function>
+    <function>
+        <name>click_prod</name>
+        <uri></uri>
+    </function>
 </functions>

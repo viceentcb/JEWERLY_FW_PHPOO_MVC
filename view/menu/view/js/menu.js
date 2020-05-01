@@ -12,7 +12,7 @@ $(document).ready(function () {
 
 var menu = function (url, data) { //function/promise GENERAL 
 
-    console.log(data)
+    // console.log(data)
 
     return new Promise(function (resolve) {
         // console.log(url)
@@ -38,7 +38,7 @@ function slider() {
         .then(function (data) {
             
 
-            console.log(data)
+            // console.log(data)
             var data=(JSON.parse(data));
             $('<div></div>').attr('class', "carousel-item active").appendTo('.carousel-inner').html(
                 '<img src="' + data[1].route + '" class="car" alt="...">'

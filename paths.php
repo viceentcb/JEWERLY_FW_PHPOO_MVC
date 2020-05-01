@@ -37,6 +37,9 @@ define('MODULES_PATH', SITE_ROOT . 'modules/');
 //VIEW
 define('VIEW_PATH', SITE_ROOT . 'view/');
 
+//VIEW
+define('VIEW_JQUERY_PATH', SITE_ROOT . 'view/jquery/');
+
 //INC
 define('VIEW_PATH_INC', SITE_ROOT . 'view/inc/');
 
@@ -65,6 +68,14 @@ define('DAO_HOME', SITE_ROOT . 'modules/home/model/DAO/');
 define('BLL_HOME', SITE_ROOT . 'modules/home/model/BLL/');
 define('MODEL_HOME', SITE_ROOT . 'modules/home/model/model/');
 define('JS_VIEW_HOME', SITE_PATH . 'modules/home/view/js/');
+
+//MODEL_HOME
+// define('UTILS_HOME', SITE_ROOT . 'modules/home/utils/');
+define('MODEL_PATH_SHOP', SITE_ROOT . 'modules/shop/model/');
+define('DAO_SHOP', SITE_ROOT . 'modules/shop/model/DAO/');
+define('BLL_SHOP', SITE_ROOT . 'modules/shop/model/BLL/');
+define('MODEL_SHOP', SITE_ROOT . 'modules/shop/model/model/');
+define('JS_VIEW_SHOP', SITE_PATH . 'modules/shop/view/js/');
 
 
 //MENU

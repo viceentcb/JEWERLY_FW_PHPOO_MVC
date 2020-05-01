@@ -9,6 +9,10 @@
         <uri>home</uri>
     </module>
     <module>
+        <name>shop</name>
+        <uri>shop</uri>
+    </module>
+    <module>
         <name>menu</name>
         <uri>menu</uri>
     </module>
