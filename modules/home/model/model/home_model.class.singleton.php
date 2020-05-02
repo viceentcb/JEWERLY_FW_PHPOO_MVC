@@ -1,5 +1,5 @@
 <?php
-require(SITE_ROOT . "modules/home/model/BLL/home_bll.class.singleton.php");
+// require(SITE_ROOT . "modules/home/model/BLL/home_bll.class.singleton.php");
 class home_model
 {
     private $bll;

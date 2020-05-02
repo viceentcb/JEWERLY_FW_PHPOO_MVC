@@ -1,5 +1,5 @@
 <?php
-require(SITE_ROOT . "view/menu/model/BLL/menu_bll.class.singleton.php");
+// require(SITE_ROOT . "view/menu/model/BLL/menu_bll.class.singleton.php");
 class menu_model {
     private $bll;
     static $_instance;

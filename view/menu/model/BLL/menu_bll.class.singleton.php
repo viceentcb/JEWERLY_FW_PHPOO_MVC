@@ -1,6 +1,6 @@
 <?php
-require_once(MODEL_PATH . "db.class.singleton.php");
-require(SITE_ROOT . "view/menu/model/DAO/menu_dao.class.singleton.php");
+// require_once(MODEL_PATH . "db.class.singleton.php");
+// require(SITE_ROOT . "view/menu/model/DAO/menu_dao.class.singleton.php");
 
 	class menu_bll{
 	    private $dao;

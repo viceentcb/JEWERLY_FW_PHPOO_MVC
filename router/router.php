@@ -1,11 +1,15 @@
 <?php
-require_once("paths.php");
-require 'autoload.php';
+// require 'autoload.php';
 
-include(UTILS . "utils.inc.php");
-include(UTILS . "common.inc.php");
+// require_once("paths.php");
+
+require ('autoload.php');
+
+
+// include(UTILS . "utils.inc.php");
+// include(UTILS . "common.inc.php");
 // include(UTILS . "upload.inc.php");
-include(UTILS . "mail.inc.php");
+// include(UTILS . "mail.inc.php");
 
 if (PRODUCTION) { //estamos en producción
     ini_set('display_errors', '1');
@@ -32,14 +36,17 @@ function handlerRouter()
 
             $URI_module = $_POST['module'];
 
+
             // Si viene del menu entrará aqui ya que se lo pasa por $_GET
         } else {
 
             $URI_module = $_GET['module'];
+
         }
     } else {
 
         $URI_module = 'home';
+
         /////PREGUNTAR
          echo '<script>window.location.href = "./home";</script>';
         /////PREGUNTAR
