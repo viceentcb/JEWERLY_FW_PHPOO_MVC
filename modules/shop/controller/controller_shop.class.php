@@ -20,14 +20,21 @@ class controller_shop
 
 
 	}
-	function list()
-	{
 
-		
+	///funcion de pintar general
+	function list()
+	{	
 			$json = array();
 			$json = loadModel(MODEL_SHOP, "shop_model", "list_model", $_POST['data']);
-			echo json_encode($json);
-		
+			echo json_encode($json);	
+	}
+
+	//funcion para el detail
+	function detail()
+	{	
+			$json = array();
+			$json = loadModel(MODEL_SHOP, "shop_model", "detail_model", $_POST['cod_ref'], $_POST['tipo']);
+			echo json_encode($json);	
 	}
 
 }

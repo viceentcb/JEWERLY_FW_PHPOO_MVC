@@ -26,5 +26,12 @@ class shop_bll
         return $this->dao->list($this->db,$number);
     }
 
+    public function detail_BLL($cod_ref, $type)
+    {
+        $this->dao->views($this->db,$cod_ref);
+        return $this->dao->detail($this->db,$cod_ref, $type);
+
+    }
+
 
 }

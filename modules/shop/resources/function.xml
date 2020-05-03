@@ -8,4 +8,8 @@
         <name>list</name>
         <uri></uri>
     </function>
+      <function>
+        <name>detail</name>
+        <uri></uri>
+    </function>
 </functions>

@@ -1,6 +1,6 @@
 $(document).ready(function () {
     // console.log("shop");
-    // click();
+    click();
     // entra();
     local();
     // ajaxForSearch();
@@ -21,20 +21,37 @@ $(document).ready(function () {
 });
 
 
+var shop = function (url, data) { //function/promise GENERAL 
+
+    // console.log(data)
+
+    return new Promise(function (resolve) {
+        // console.log(url)
+        // console.log(data)
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: data
+        })
+            .done(function (data) {
+                resolve(data);
+            })
+    })
+};
 
 
 /////FUNCION PARA IR DEL HOME AL LISTADO DE SHOP
-function ajaxForSearch(url,data) {
+function ajaxForSearch(url, data) {
     console.log(url);
     console.log(data)
     $.ajax({
         type: "POST",
-        data:data,
+        data: data,
         url: url,
     })
         .done(function (data) {
             console.log(data);
-            var data= JSON.parse(data)
+            var data = JSON.parse(data)
             for (row in data) {
                 //Cuando solo quede un producto avisara al cliente de que este producto es el ultimo
                 //Ademas avisara y mostrara que el articulo esta en oferta
@@ -209,7 +226,7 @@ function local() {
             number = 0
 
             var info = { module: 'shop', function: 'list', data: number }
-            ajaxForSearch (amigable("?"), info)
+            ajaxForSearch(amigable("?"), info)
         }
     }//End if document
     console.log("Borrar datos");
@@ -259,878 +276,883 @@ function click() {
         console.log(tipo);
 
         ///CADA VEZ QUE CLICAMOS SE SUMAN LAS VISITAS DE ESE PRODUCTO A LA BASE DE DATOS 
-        $.ajax({
-            type: "GET",
-            dataType: 'json',
-            url: "module/shop/controller/controller_shop.php?op=views&cod_ref=" + cod_ref
-        }).fail(function () {
-            console.log("fail")
-        })
+        // $.ajax({
+        //     type: "GET",
+        //     dataType: 'json',
+        //     url: "module/shop/controller/controller_shop.php?op=views&cod_ref=" + cod_ref
+        // }).fail(function () {
+        //     console.log("fail")
+        // })
 
-        $.ajax({
-            type: "GET",
-            dataType: 'json',
-            url: "module/shop/controller/controller_shop.php?op=detail&cod_ref=" + cod_ref + "&type=" + tipo
 
-        }).done(function (data) {
-            console.log("done");
-            console.log(data);
-            $("#container").empty();
-            $("#container1").empty();
-            $("#fil_empty").empty();
-            $("#maps").empty();
+        var info = { module: 'shop', function: 'detail', cod_ref: cod_ref, tipo:tipo }
 
-            for (i = 0; i < 1; i++) {
-                $("#detail_products").append(
+        shop(amigable("?"), info)
+            .then(function (data) {
 
-                    '<table>' +
-                    "<button class='baddcart' id='" + data[i].cod_ref + "'>Add to cart</button></div></div>" +
-                    "<button class='btn btn-default btn-lg like " + data[i].cod_ref + "' id='" + data[i].cod_ref + "'>❤</button>" +
+                var data=JSON.parse(data)
+                // $.ajax({
+                //     type: "GET",
+                //     dataType: 'json',
+                //     url: "module/shop/controller/controller_shop.php?op=detail&cod_ref=" + cod_ref + "&type=" + tipo
 
-                    '<tr>' +
-                    '<td rowspan="5"><img src= ' + data[i].route + '></td>' +
-                    '<td><strong>Nombre:  </strong>' + data[i].nombre + '</td>' +
+                // }).done(function (data) {
+                    console.log("done");
+                    console.log(data);
+                    $("#container").empty();
+                    $("#container1").empty();
+                    $("#fil_empty").empty();
+                    $("#maps").empty();
 
-                    '</tr>' +
+                    for (i = 0; i < 1; i++) {
+                        $("#detail_products").append(
 
-                    '<tr>' +
-                    '<td><strong>Tipo de oro:  </strong>' + data[i].oro + '</td>' +
-                    '</tr>' +
+                            '<table>' +
+                            "<button class='baddcart' id='" + data[i].cod_ref + "'>Add to cart</button></div></div>" +
+                            "<button class='btn btn-default btn-lg like " + data[i].cod_ref + "' id='" + data[i].cod_ref + "'>❤</button>" +
 
-                    '<tr>' +
-                    '<td>' + data[i].nombre + '</td>' +
-                    '</tr>' +
+                            '<tr>' +
+                            '<td rowspan="5"><img src= ' + data[i].route + '></td>' +
+                            '<td><strong>Nombre:  </strong>' + data[i].nombre + '</td>' +
 
-                    '<tr>' +
-                    '<td>' + data[i].nombre + '</td>' +
-                    '</tr>' +
+                            '</tr>' +
 
-                    '<tr>' +
-                    '<td>' + data[i].nombre + '</td>' +
-                    '</tr>' +
+                            '<tr>' +
+                            '<td><strong>Tipo de oro:  </strong>' + data[i].oro + '</td>' +
+                            '</tr>' +
 
-                    '</table>'
+                            '<tr>' +
+                            '<td>' + data[i].nombre + '</td>' +
+                            '</tr>' +
 
-                )
-            }
-            for (i = 1; i < 4; i++) {
-                if (data[i] !== undefined) {
-                    //Cuando solo quede un producto avisara al cliente de que este producto es el ultimo
-                    //Ademas avisara y mostrara que el articulo esta en oferta
-                    $("#detail_products").append(
-                        '<img src= ' + data[i].route + ' class="detail" id=' + data[i].cod_ref + ' type=' + data[i].tipo + '>'
-                    )
-                } else {
-                    i = 4;
-                }
-            }
+                            '<tr>' +
+                            '<td>' + data[i].nombre + '</td>' +
+                            '</tr>' +
 
-            paint_likes()
+                            '<tr>' +
+                            '<td>' + data[i].nombre + '</td>' +
+                            '</tr>' +
 
-        }).fail(function () {
-            console.log("fail")
-        })
-        $("#detail_products").empty();
-    })
+                            '</table>'
 
-}
+                        )
+                    }
+                    for (i = 1; i < 4; i++) {
+                        if (data[i] !== undefined) {
+                            //Cuando solo quede un producto avisara al cliente de que este producto es el ultimo
+                            //Ademas avisara y mostrara que el articulo esta en oferta
+                            $("#detail_products").append(
+                                '<img src= ' + data[i].route + ' class="detail" id=' + data[i].cod_ref + ' type=' + data[i].tipo + '>'
+                            )
+                        } else {
+                            i = 4;
+                        }
+                    }
+
+                    paint_likes()
+
+                })
+                $("#detail_products").empty();
+            })
+
+    }
 
 ////FUNCTION PARA FILTRAR PRODUCTOS A VOLUNTAD DEL USUARIO
 function filter() {
-    var checks = "";
-    var order = "";
-    var click_an = 0;
-    var click_pul = 0;
-    var click_rel = 0;
-    var click_circ = 0;
-    var click_cuad = 0;
-    var click_sport = 0;
-    var click_abi = 0;
-    var click_di = 0;
-    var click_za = 0;
-    var click_ru = 0;
-    var click_ros = 0;
-    var click_blan = 0;
-    var click_pur = 0;
-    var click_like = 0;
-
-    $('#anillo').click(function () {
-        console.log("click_an= " + click_an)
-
-        if ((click_an % 2) == 0) {
-            console.log("click_an para filtrar")
-            click_an = click_an + 1
-            if (checks === "") {
-                console.log("cadena vacia")
-                checks = "where tipo = 'anillo'" + checks;
-            } else {
-                console.log("cadena escrita")
-                checks = checks + " OR tipo = 'anillo'";
-                console.log(anillo);
-            }
-            click_filter(checks, order);
-
-        } else {
-            console.log("click_an para desfiltrar")
-            click_an = click_an + 1
-            anillo = '';
-            checks = checks.replace("tipo = 'anillo' OR ", "");
-            checks = checks.replace(" OR tipo = 'anillo'", "");
-            checks = checks.replace("where tipo = 'anillo'", "");
-            click_filter(checks, order);
-        }
-        console.log("click_an= " + click_an)
-    });
-
-    $('#pulsera').click(function () {
-        console.log("click_pul= " + click_pul)
-
-        if ((click_pul % 2) == 0) {
-            console.log("click_pul para filtrar")
-            click_pul = click_pul + 1
-            if (checks === "") {
-                console.log("cadena vacia")
-                checks = "where tipo = 'pulsera'" + checks;
-
-            } else {
-                console.log("cadena escrita")
-                checks = checks + " OR tipo = 'pulsera'";
-
-            }
-            click_filter(checks, order);
-
-        } else {
-            console.log("click_pul para desfiltrar")
-            click_pul = click_pul + 1
-            checks = checks.replace("tipo = 'pulsera' OR ", "");
-            checks = checks.replace(" OR tipo = 'pulsera'", "");
-            checks = checks.replace("where tipo = 'pulsera'", "");
-            click_filter(checks, order);
-
-        }
-        console.log("click_pul= " + click_pul)
-
-    });
-    $('#reloj').click(function () {
-        console.log("click_rel= " + click_rel)
-
-        if ((click_rel % 2) == 0) {
-            console.log("click_rel para filtrar")
-            click_rel = click_rel + 1
-            if (checks === "") {
-                console.log("cadena vacia")
-                checks = "where tipo = 'reloj'" + checks;
-
-            } else {
-                console.log("cadena escrita")
-                checks = checks + " OR tipo = 'reloj'";
-
-            }
-            click_filter(checks, order);
-
-        } else {
-            console.log("click_rel para desfiltrar")
-            click_rel = click_rel + 1
-            checks = checks.replace("tipo = 'reloj' OR ", "");
-            checks = checks.replace(" OR tipo = 'reloj'", "");
-            checks = checks.replace("where tipo = 'reloj'", "");
-            click_filter(checks, order);
-
-        }
-        console.log("click_rel= " + click_rel)
-
-    });
-
-    $('#circular').click(function () {
-        console.log("click_circ= " + click_circ)
-
-        if ((click_circ % 2) == 0) {
-            console.log("click_circ para filtrar")
-            click_circ = click_circ + 1
-            if (checks === "") {
-                console.log("cadena vacia")
-                checks = "where forma = 'circular'" + checks;
-
-            } else {
-                console.log("cadena escrita")
-                checks = checks + " OR forma = 'circular'";
-
-            }
-            click_filter(checks, order);
-
-        } else {
-            console.log("click_circ para desfiltrar")
-            click_circ = click_circ + 1
-            checks = checks.replace("forma = 'circular' OR ", "");
-            checks = checks.replace(" OR forma = 'circular'", "");
-            checks = checks.replace("where forma = 'circular'", "");
-            click_filter(checks, order);
-
-        }
-        console.log("click_circ= " + click_circ)
-
-    });
-    $('#cuadrada').click(function () {
-        console.log("click_cuad= " + click_cuad)
-
-        if ((click_cuad % 2) == 0) {
-            console.log("click_cuad para filtrar")
-            click_cuad = click_cuad + 1
-            if (checks === "") {
-                console.log("cadena vacia")
-                checks = "where forma = 'cuadrada'" + checks;
-
-            } else {
-                console.log("cadena escrita")
-                checks = checks + " OR forma = 'cuadrada'";
-
-            }
-            click_filter(checks, order);
-
-        } else {
-            console.log("click_cuad para desfiltrar")
-            click_cuad = click_cuad + 1
-            checks = checks.replace("forma = 'cuadrada' OR ", "");
-            checks = checks.replace(" OR forma = 'cuadrada'", "");
-            checks = checks.replace("where forma = 'cuadrada'", "");
-            click_filter(checks, order);
-
-        }
-        console.log("click_cuad= " + click_cuad)
-
-    });
-    $('#sport').click(function () {
-        console.log("click_sport= " + click_sport)
-
-        if ((click_sport % 2) == 0) {
-            console.log("click_sport para filtrar")
-            click_sport = click_sport + 1
-            if (checks === "") {
-                console.log("cadena vacia")
-                checks = "where forma = 'sport'" + checks;
-
-            } else {
-                console.log("cadena escrita")
-                checks = checks + " OR forma = 'sport'";
-
-            }
-            click_filter(checks, order);
-
-        } else {
-            console.log("click_sport para desfiltrar")
-            click_sport = click_sport + 1
-            checks = checks.replace("forma = 'sport' OR ", "");
-            checks = checks.replace(" OR forma = 'sport'", "");
-            checks = checks.replace("where forma = 'sport'", "");
-            click_filter(checks, order);
-
-        }
-        console.log("click_sport= " + click_sport)
-
-    });
-    $('#abierta').click(function () {
-        console.log("click_abi= " + click_abi)
-
-        if ((click_abi % 2) == 0) {
-            console.log("click_abi para filtrar")
-            click_abi = click_abi + 1
-            if (checks === "") {
-                console.log("cadena vacia")
-                checks = "where forma = 'abierta'" + checks;
-
-            } else {
-                console.log("cadena escrita")
-                checks = checks + " OR forma = 'abierta'";
-
-            }
-            click_filter(checks, order);
-
-        } else {
-            console.log("click_abi para desfiltrar")
-            click_abi = click_abi + 1
-            checks = checks.replace("forma = 'abierta' OR ", "");
-            checks = checks.replace(" OR forma = 'abierta'", "");
-            checks = checks.replace("where forma = 'abierta'", "");
-            click_filter(checks, order);
-
-        }
-        console.log("click_abi= " + click_abi)
-
-    });
-
-    $('#diamante').click(function () {
-        console.log("click_di= " + click_di)
-
-        if ((click_di % 2) == 0) {
-            console.log("click_di para filtrar")
-            click_di = click_di + 1
-            if (checks === "") {
-                console.log("cadena vacia")
-                checks = "where gema like '%diamante%'" + checks;
-
-            } else {
-                console.log("cadena escrita")
-                checks = checks + " OR gema like '%diamante%'";
-
-            }
-            click_filter(checks, order);
-
-        } else {
-            console.log("click_di para desfiltrar")
-            click_di = click_di + 1
-            checks = checks.replace("gema like '%diamante%' OR ", "");
-            checks = checks.replace(" OR gema like '%diamante%'", "");
-            checks = checks.replace("where gema like '%diamante%'", "");
-            click_filter(checks, order);
-
-        }
-        console.log("click_di= " + click_di)
-
-    });
-    $('#zafiro').click(function () {
-        console.log("click_za= " + click_za)
-
-        if ((click_za % 2) == 0) {
-            console.log("click_za para filtrar")
-            click_za = click_za + 1
-            if (checks === "") {
-                console.log("cadena vacia")
-                checks = "where gema like '%zafiro%'" + checks;
-
-            } else {
-                console.log("cadena escrita")
-                checks = checks + " OR gema like '%zafiro%'";
-
-            }
-            click_filter(checks, order);
-
-        } else {
-            console.log("click_za para desfiltrar")
-            click_za = click_za + 1
-            checks = checks.replace("gema like '%zafiro%' OR ", "");
-            checks = checks.replace(" OR gema like '%zafiro%'", "");
-            checks = checks.replace("where gema like '%zafiro%'", "");
-            click_filter(checks, order);
-
-        }
-        console.log("click_za= " + click_za)
-
-    });
-    $('#rubi').click(function () {
-        console.log("click_ru= " + click_ru)
-
-        if ((click_ru % 2) == 0) {
-            console.log("click_ru para filtrar")
-            click_ru = click_ru + 1
-            if (checks === "") {
-                console.log("cadena vacia")
-                checks = "where gema like '%rubi%'" + checks;
-
-            } else {
-                console.log("cadena escrita")
-                checks = checks + " OR gema like '%rubi%'";
-
-            }
-            click_filter(checks, order);
-
-        } else {
-            console.log("click_ru para desfiltrar")
-            click_ru = click_ru + 1
-            checks = checks.replace("gema like '%rubi%' OR ", "");
-            checks = checks.replace(" OR gema like '%rubi%'", "");
-            checks = checks.replace("where gema like '%rubi%'", "");
-            click_filter(checks, order);
-
-        }
-        console.log("click_ru= " + click_ru)
-
-    });
-
-    $('#rosado').click(function () {
-        console.log("click_ros= " + click_ros)
-
-        if ((click_ros % 2) == 0) {
-            console.log("click_ros para filtrar")
-            click_ros = click_ros + 1
-            if (checks === "") {
-                console.log("cadena vacia")
-                checks = "where oro like '%rosado%'" + checks;
-
-            } else {
-                console.log("cadena escrita")
-                checks = checks + " OR oro like '%rosado%'";
-
-            }
-            click_filter(checks, order);
-
-        } else {
-            console.log("click_ros para desfiltrar")
-            click_ros = click_ros + 1
-            checks = checks.replace("oro like '%rosado%' OR ", "");
-            checks = checks.replace(" OR oro like '%rosado%'", "");
-            checks = checks.replace("where oro like '%rosado%'", "");
-            click_filter(checks, order);
-
-        }
-        console.log("click_ros= " + click_ros)
-
-    });
-    $('#blanco').click(function () {
-        console.log("click_blan= " + click_blan)
-
-        if ((click_blan % 2) == 0) {
-            console.log("click_blan para filtrar")
-            click_blan = click_blan + 1
-            if (checks === "") {
-                console.log("cadena vacia")
-                checks = "where oro like '%blanco%'" + checks;
-
-            } else {
-                console.log("cadena escrita")
-                checks = checks + " OR oro like '%blanco%'";
-
-            }
-            click_filter(checks, order);
-
-        } else {
-            console.log("click_blan para desfiltrar")
-            click_blan = click_blan + 1
-            checks = checks.replace("oro like '%blanco%' OR ", "");
-            checks = checks.replace(" OR oro like '%blanco%'", "");
-            checks = checks.replace("where oro like '%blanco%'", "");
-            click_filter(checks, order);
-
-        }
-        console.log("click_blan= " + click_blan)
-    });
-    $('#puro').click(function () {
-        console.log("click_pur= " + click_pur)
-
-        if ((click_pur % 2) == 0) {
-            console.log("click_pur para filtrar")
-            click_pur = click_pur + 1
-            if (checks === "") {
-                console.log("cadena vacia")
-                checks = "where oro like '%puro%'" + checks;
-            } else {
-                console.log("cadena escrita")
-                checks = checks + " OR oro like '%puro%'";
-
-            }
-            click_filter(checks, order);
-
-        } else {
-            console.log("click_pur para desfiltrar")
-            click_pur = click_pur + 1
-            checks = checks.replace("oro like '%puro%' OR ", "");
-            checks = checks.replace(" OR oro like '%puro%'", "");
-            checks = checks.replace("where oro like '%puro%'", "");
-            click_filter(checks, order);
-
-        }
-        console.log("click_pur= " + click_pur)
-
-    });
-
-    ///entrara cuando hagamos click en un filtro para ver los favoritos
-    $('#favorite').click(function () {
-        console.log("click_like= " + click_like)
-
-        //le decimos a la promesa general que obtenga el nombre del usuario logueado
-        likes('module/shop/controller/controller_shop.php?op=user')
-            .then(function (name) {
-                // console.log(name)
-
-                //si hay algun usuario conectado entra
-                if (name !== "") {
-                    console.log('entra if')
-                    console.log(name)
-
-                    ///si es la primera vez o alguna  vez par ya que el contador empieza en 0 fitrara
-                    if ((click_like % 2) == 0) {
-                        console.log("click_like para filtrar")
-                        click_like = click_like + 1
-
-                        ///comprobara si la cadena esta vacia o llena
-                        if (checks === "") {
-                            console.log("cadena vacia")
-                            checks = "Where cod_ref in (SELECT cod_ref from likes where user_name='" + name + "')";
-                        } else {
-                            console.log("cadena escrita")
-                            checks = checks + " AND cod_ref in (SELECT cod_ref from likes where user_name='" + name + "')";
-
-                        }
-                        click_filter(checks, order);
-
-                        ///entrara si esta clickando para desfiltrar y borrara la cadena
+            var checks = "";
+            var order = "";
+            var click_an = 0;
+            var click_pul = 0;
+            var click_rel = 0;
+            var click_circ = 0;
+            var click_cuad = 0;
+            var click_sport = 0;
+            var click_abi = 0;
+            var click_di = 0;
+            var click_za = 0;
+            var click_ru = 0;
+            var click_ros = 0;
+            var click_blan = 0;
+            var click_pur = 0;
+            var click_like = 0;
+
+            $('#anillo').click(function () {
+                console.log("click_an= " + click_an)
+
+                if ((click_an % 2) == 0) {
+                    console.log("click_an para filtrar")
+                    click_an = click_an + 1
+                    if (checks === "") {
+                        console.log("cadena vacia")
+                        checks = "where tipo = 'anillo'" + checks;
                     } else {
-                        console.log("click_like para desfiltrar")
-                        click_like = click_like + 1
-                        checks = checks.replace(" AND cod_ref in (SELECT cod_ref from likes where user_name='" + name + "')", "");
-                        checks = checks.replace("Where cod_ref in (SELECT cod_ref from likes where user_name='" + name + "')", "");
-                        click_filter(checks, order);
+                        console.log("cadena escrita")
+                        checks = checks + " OR tipo = 'anillo'";
+                        console.log(anillo);
+                    }
+                    click_filter(checks, order);
+
+                } else {
+                    console.log("click_an para desfiltrar")
+                    click_an = click_an + 1
+                    anillo = '';
+                    checks = checks.replace("tipo = 'anillo' OR ", "");
+                    checks = checks.replace(" OR tipo = 'anillo'", "");
+                    checks = checks.replace("where tipo = 'anillo'", "");
+                    click_filter(checks, order);
+                }
+                console.log("click_an= " + click_an)
+            });
+
+            $('#pulsera').click(function () {
+                console.log("click_pul= " + click_pul)
+
+                if ((click_pul % 2) == 0) {
+                    console.log("click_pul para filtrar")
+                    click_pul = click_pul + 1
+                    if (checks === "") {
+                        console.log("cadena vacia")
+                        checks = "where tipo = 'pulsera'" + checks;
+
+                    } else {
+                        console.log("cadena escrita")
+                        checks = checks + " OR tipo = 'pulsera'";
 
                     }
+                    click_filter(checks, order);
 
-                    console.log("click_like= " + click_like)
-
-                    //si no esta logueado lo mandara a loguearse
                 } else {
-                    redirect_login();
+                    console.log("click_pul para desfiltrar")
+                    click_pul = click_pul + 1
+                    checks = checks.replace("tipo = 'pulsera' OR ", "");
+                    checks = checks.replace(" OR tipo = 'pulsera'", "");
+                    checks = checks.replace("where tipo = 'pulsera'", "");
+                    click_filter(checks, order);
+
                 }
+                console.log("click_pul= " + click_pul)
+
+            });
+            $('#reloj').click(function () {
+                console.log("click_rel= " + click_rel)
+
+                if ((click_rel % 2) == 0) {
+                    console.log("click_rel para filtrar")
+                    click_rel = click_rel + 1
+                    if (checks === "") {
+                        console.log("cadena vacia")
+                        checks = "where tipo = 'reloj'" + checks;
+
+                    } else {
+                        console.log("cadena escrita")
+                        checks = checks + " OR tipo = 'reloj'";
+
+                    }
+                    click_filter(checks, order);
+
+                } else {
+                    console.log("click_rel para desfiltrar")
+                    click_rel = click_rel + 1
+                    checks = checks.replace("tipo = 'reloj' OR ", "");
+                    checks = checks.replace(" OR tipo = 'reloj'", "");
+                    checks = checks.replace("where tipo = 'reloj'", "");
+                    click_filter(checks, order);
+
+                }
+                console.log("click_rel= " + click_rel)
+
+            });
+
+            $('#circular').click(function () {
+                console.log("click_circ= " + click_circ)
+
+                if ((click_circ % 2) == 0) {
+                    console.log("click_circ para filtrar")
+                    click_circ = click_circ + 1
+                    if (checks === "") {
+                        console.log("cadena vacia")
+                        checks = "where forma = 'circular'" + checks;
+
+                    } else {
+                        console.log("cadena escrita")
+                        checks = checks + " OR forma = 'circular'";
+
+                    }
+                    click_filter(checks, order);
+
+                } else {
+                    console.log("click_circ para desfiltrar")
+                    click_circ = click_circ + 1
+                    checks = checks.replace("forma = 'circular' OR ", "");
+                    checks = checks.replace(" OR forma = 'circular'", "");
+                    checks = checks.replace("where forma = 'circular'", "");
+                    click_filter(checks, order);
+
+                }
+                console.log("click_circ= " + click_circ)
+
+            });
+            $('#cuadrada').click(function () {
+                console.log("click_cuad= " + click_cuad)
+
+                if ((click_cuad % 2) == 0) {
+                    console.log("click_cuad para filtrar")
+                    click_cuad = click_cuad + 1
+                    if (checks === "") {
+                        console.log("cadena vacia")
+                        checks = "where forma = 'cuadrada'" + checks;
+
+                    } else {
+                        console.log("cadena escrita")
+                        checks = checks + " OR forma = 'cuadrada'";
+
+                    }
+                    click_filter(checks, order);
+
+                } else {
+                    console.log("click_cuad para desfiltrar")
+                    click_cuad = click_cuad + 1
+                    checks = checks.replace("forma = 'cuadrada' OR ", "");
+                    checks = checks.replace(" OR forma = 'cuadrada'", "");
+                    checks = checks.replace("where forma = 'cuadrada'", "");
+                    click_filter(checks, order);
+
+                }
+                console.log("click_cuad= " + click_cuad)
+
+            });
+            $('#sport').click(function () {
+                console.log("click_sport= " + click_sport)
+
+                if ((click_sport % 2) == 0) {
+                    console.log("click_sport para filtrar")
+                    click_sport = click_sport + 1
+                    if (checks === "") {
+                        console.log("cadena vacia")
+                        checks = "where forma = 'sport'" + checks;
+
+                    } else {
+                        console.log("cadena escrita")
+                        checks = checks + " OR forma = 'sport'";
+
+                    }
+                    click_filter(checks, order);
+
+                } else {
+                    console.log("click_sport para desfiltrar")
+                    click_sport = click_sport + 1
+                    checks = checks.replace("forma = 'sport' OR ", "");
+                    checks = checks.replace(" OR forma = 'sport'", "");
+                    checks = checks.replace("where forma = 'sport'", "");
+                    click_filter(checks, order);
+
+                }
+                console.log("click_sport= " + click_sport)
+
+            });
+            $('#abierta').click(function () {
+                console.log("click_abi= " + click_abi)
+
+                if ((click_abi % 2) == 0) {
+                    console.log("click_abi para filtrar")
+                    click_abi = click_abi + 1
+                    if (checks === "") {
+                        console.log("cadena vacia")
+                        checks = "where forma = 'abierta'" + checks;
+
+                    } else {
+                        console.log("cadena escrita")
+                        checks = checks + " OR forma = 'abierta'";
+
+                    }
+                    click_filter(checks, order);
+
+                } else {
+                    console.log("click_abi para desfiltrar")
+                    click_abi = click_abi + 1
+                    checks = checks.replace("forma = 'abierta' OR ", "");
+                    checks = checks.replace(" OR forma = 'abierta'", "");
+                    checks = checks.replace("where forma = 'abierta'", "");
+                    click_filter(checks, order);
+
+                }
+                console.log("click_abi= " + click_abi)
+
+            });
+
+            $('#diamante').click(function () {
+                console.log("click_di= " + click_di)
+
+                if ((click_di % 2) == 0) {
+                    console.log("click_di para filtrar")
+                    click_di = click_di + 1
+                    if (checks === "") {
+                        console.log("cadena vacia")
+                        checks = "where gema like '%diamante%'" + checks;
+
+                    } else {
+                        console.log("cadena escrita")
+                        checks = checks + " OR gema like '%diamante%'";
+
+                    }
+                    click_filter(checks, order);
+
+                } else {
+                    console.log("click_di para desfiltrar")
+                    click_di = click_di + 1
+                    checks = checks.replace("gema like '%diamante%' OR ", "");
+                    checks = checks.replace(" OR gema like '%diamante%'", "");
+                    checks = checks.replace("where gema like '%diamante%'", "");
+                    click_filter(checks, order);
+
+                }
+                console.log("click_di= " + click_di)
+
+            });
+            $('#zafiro').click(function () {
+                console.log("click_za= " + click_za)
+
+                if ((click_za % 2) == 0) {
+                    console.log("click_za para filtrar")
+                    click_za = click_za + 1
+                    if (checks === "") {
+                        console.log("cadena vacia")
+                        checks = "where gema like '%zafiro%'" + checks;
+
+                    } else {
+                        console.log("cadena escrita")
+                        checks = checks + " OR gema like '%zafiro%'";
+
+                    }
+                    click_filter(checks, order);
+
+                } else {
+                    console.log("click_za para desfiltrar")
+                    click_za = click_za + 1
+                    checks = checks.replace("gema like '%zafiro%' OR ", "");
+                    checks = checks.replace(" OR gema like '%zafiro%'", "");
+                    checks = checks.replace("where gema like '%zafiro%'", "");
+                    click_filter(checks, order);
+
+                }
+                console.log("click_za= " + click_za)
+
+            });
+            $('#rubi').click(function () {
+                console.log("click_ru= " + click_ru)
+
+                if ((click_ru % 2) == 0) {
+                    console.log("click_ru para filtrar")
+                    click_ru = click_ru + 1
+                    if (checks === "") {
+                        console.log("cadena vacia")
+                        checks = "where gema like '%rubi%'" + checks;
+
+                    } else {
+                        console.log("cadena escrita")
+                        checks = checks + " OR gema like '%rubi%'";
+
+                    }
+                    click_filter(checks, order);
+
+                } else {
+                    console.log("click_ru para desfiltrar")
+                    click_ru = click_ru + 1
+                    checks = checks.replace("gema like '%rubi%' OR ", "");
+                    checks = checks.replace(" OR gema like '%rubi%'", "");
+                    checks = checks.replace("where gema like '%rubi%'", "");
+                    click_filter(checks, order);
+
+                }
+                console.log("click_ru= " + click_ru)
+
+            });
+
+            $('#rosado').click(function () {
+                console.log("click_ros= " + click_ros)
+
+                if ((click_ros % 2) == 0) {
+                    console.log("click_ros para filtrar")
+                    click_ros = click_ros + 1
+                    if (checks === "") {
+                        console.log("cadena vacia")
+                        checks = "where oro like '%rosado%'" + checks;
+
+                    } else {
+                        console.log("cadena escrita")
+                        checks = checks + " OR oro like '%rosado%'";
+
+                    }
+                    click_filter(checks, order);
+
+                } else {
+                    console.log("click_ros para desfiltrar")
+                    click_ros = click_ros + 1
+                    checks = checks.replace("oro like '%rosado%' OR ", "");
+                    checks = checks.replace(" OR oro like '%rosado%'", "");
+                    checks = checks.replace("where oro like '%rosado%'", "");
+                    click_filter(checks, order);
+
+                }
+                console.log("click_ros= " + click_ros)
+
+            });
+            $('#blanco').click(function () {
+                console.log("click_blan= " + click_blan)
+
+                if ((click_blan % 2) == 0) {
+                    console.log("click_blan para filtrar")
+                    click_blan = click_blan + 1
+                    if (checks === "") {
+                        console.log("cadena vacia")
+                        checks = "where oro like '%blanco%'" + checks;
+
+                    } else {
+                        console.log("cadena escrita")
+                        checks = checks + " OR oro like '%blanco%'";
+
+                    }
+                    click_filter(checks, order);
+
+                } else {
+                    console.log("click_blan para desfiltrar")
+                    click_blan = click_blan + 1
+                    checks = checks.replace("oro like '%blanco%' OR ", "");
+                    checks = checks.replace(" OR oro like '%blanco%'", "");
+                    checks = checks.replace("where oro like '%blanco%'", "");
+                    click_filter(checks, order);
+
+                }
+                console.log("click_blan= " + click_blan)
+            });
+            $('#puro').click(function () {
+                console.log("click_pur= " + click_pur)
+
+                if ((click_pur % 2) == 0) {
+                    console.log("click_pur para filtrar")
+                    click_pur = click_pur + 1
+                    if (checks === "") {
+                        console.log("cadena vacia")
+                        checks = "where oro like '%puro%'" + checks;
+                    } else {
+                        console.log("cadena escrita")
+                        checks = checks + " OR oro like '%puro%'";
+
+                    }
+                    click_filter(checks, order);
+
+                } else {
+                    console.log("click_pur para desfiltrar")
+                    click_pur = click_pur + 1
+                    checks = checks.replace("oro like '%puro%' OR ", "");
+                    checks = checks.replace(" OR oro like '%puro%'", "");
+                    checks = checks.replace("where oro like '%puro%'", "");
+                    click_filter(checks, order);
+
+                }
+                console.log("click_pur= " + click_pur)
+
+            });
+
+            ///entrara cuando hagamos click en un filtro para ver los favoritos
+            $('#favorite').click(function () {
+                console.log("click_like= " + click_like)
+
+                //le decimos a la promesa general que obtenga el nombre del usuario logueado
+                likes('module/shop/controller/controller_shop.php?op=user')
+                    .then(function (name) {
+                        // console.log(name)
+
+                        //si hay algun usuario conectado entra
+                        if (name !== "") {
+                            console.log('entra if')
+                            console.log(name)
+
+                            ///si es la primera vez o alguna  vez par ya que el contador empieza en 0 fitrara
+                            if ((click_like % 2) == 0) {
+                                console.log("click_like para filtrar")
+                                click_like = click_like + 1
+
+                                ///comprobara si la cadena esta vacia o llena
+                                if (checks === "") {
+                                    console.log("cadena vacia")
+                                    checks = "Where cod_ref in (SELECT cod_ref from likes where user_name='" + name + "')";
+                                } else {
+                                    console.log("cadena escrita")
+                                    checks = checks + " AND cod_ref in (SELECT cod_ref from likes where user_name='" + name + "')";
+
+                                }
+                                click_filter(checks, order);
+
+                                ///entrara si esta clickando para desfiltrar y borrara la cadena
+                            } else {
+                                console.log("click_like para desfiltrar")
+                                click_like = click_like + 1
+                                checks = checks.replace(" AND cod_ref in (SELECT cod_ref from likes where user_name='" + name + "')", "");
+                                checks = checks.replace("Where cod_ref in (SELECT cod_ref from likes where user_name='" + name + "')", "");
+                                click_filter(checks, order);
+
+                            }
+
+                            console.log("click_like= " + click_like)
+
+                            //si no esta logueado lo mandara a loguearse
+                        } else {
+                            redirect_login();
+                        }
+                    })
+
             })
 
-    })
+
+            $("#order").on("change", function () {
+                console.log("order")
+                var option = document.getElementById('order').value;
+                console.log("options= " + option)
+                if (option == "val_desc") {
+                    order = "ORDER BY val DESC";
+                } else if (option == "stock_asc") {
+                    order = "ORDER BY unidades ASC";
+                } else if (option == "stock_desc") {
+                    order = "ORDER BY unidades DESC";
+                } else {
+                    order = "";
+                }
+                click_filter(checks, order);
+
+            });
+            // console.log(checks)
+            // console.log(order)
 
 
-    $("#order").on("change", function () {
-        console.log("order")
-        var option = document.getElementById('order').value;
-        console.log("options= " + option)
-        if (option == "val_desc") {
-            order = "ORDER BY val DESC";
-        } else if (option == "stock_asc") {
-            order = "ORDER BY unidades ASC";
-        } else if (option == "stock_desc") {
-            order = "ORDER BY unidades DESC";
-        } else {
-            order = "";
+
+
+
         }
-        click_filter(checks, order);
-
-    });
-    // console.log(checks)
-    // console.log(order)
-
-
-
-
-
-}
 ///funcion para activar los filtros
 function click_filter(checks, order) {
 
-    console.log("entra click_filter")
-    console.log(checks)
-    console.log(order)
+            console.log("entra click_filter")
+            console.log(checks)
+            console.log(order)
 
-    $("#list_products").empty();
+            $("#list_products").empty();
 
-    ajaxForSearch("module/shop/controller/controller_shop.php?op=filter&checks=" + checks + "&order=" + order)
+            ajaxForSearch("module/shop/controller/controller_shop.php?op=filter&checks=" + checks + "&order=" + order)
 
-}
+        }
 
 ////FUNCTION PARA ENSEÑAR EL MAPA
 function initMap() {
 
-    var ray = [];
+            var ray = [];
 
-    // var
-    // jewelry_stores = [
-    //   [estacio],
-    //   ['Cartier-Madrid'],
-    //   ['Vintage Watches Valencia'],
-    // ];
-    // console.log(jewelry_stores)
-    var map = new google.maps.Map(document.getElementById('maps'), {
-        zoom: 6,
-        center: new google.maps.LatLng(40.05, -3.695447),
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    });
-
-    var infowindow = new google.maps.InfoWindow();
-    $.ajax({
-        type: "GET",
-        dataType: 'json',
-        url: "module/shop/controller/controller_shop.php?op=maps"
-
-    }).done(function (data) {
-        console.log(data);
-
-        for (row in data) {
-
-
-            var newMarker = new google.maps.Marker({
-                position: new google.maps.LatLng(
-                    data[row].lat,
-                    data[row].lng),
-                map: map,
-                title:
-                    data[row].tienda
+            // var
+            // jewelry_stores = [
+            //   [estacio],
+            //   ['Cartier-Madrid'],
+            //   ['Vintage Watches Valencia'],
+            // ];
+            // console.log(jewelry_stores)
+            var map = new google.maps.Map(document.getElementById('maps'), {
+                zoom: 6,
+                center: new google.maps.LatLng(40.05, -3.695447),
+                mapTypeId: google.maps.MapTypeId.ROADMAP
             });
 
-            google.maps.event.addListener(newMarker, 'click', (function (newMarker, row) {
-                return function () {
-                    var lat = data[row].lat
-                    var lng = data[row].lng
-                    $.ajax({
-                        type: "GET",
-                        dataType: 'json',
-                        url: "module/shop/controller/controller_shop.php?op=desc_maps&lat=" + lat + "&lng=" + lng
-                    }).done(function (data) {
-                        console.log(data);
-                        var descripcion = ""
-                        for (row in data) {
-                            descripcion = descripcion + data[row].descripcion
+            var infowindow = new google.maps.InfoWindow();
+            $.ajax({
+                type: "GET",
+                dataType: 'json',
+                url: "module/shop/controller/controller_shop.php?op=maps"
+
+            }).done(function (data) {
+                console.log(data);
+
+                for (row in data) {
+
+
+                    var newMarker = new google.maps.Marker({
+                        position: new google.maps.LatLng(
+                            data[row].lat,
+                            data[row].lng),
+                        map: map,
+                        title:
+                            data[row].tienda
+                    });
+
+                    google.maps.event.addListener(newMarker, 'click', (function (newMarker, row) {
+                        return function () {
+                            var lat = data[row].lat
+                            var lng = data[row].lng
+                            $.ajax({
+                                type: "GET",
+                                dataType: 'json',
+                                url: "module/shop/controller/controller_shop.php?op=desc_maps&lat=" + lat + "&lng=" + lng
+                            }).done(function (data) {
+                                console.log(data);
+                                var descripcion = ""
+                                for (row in data) {
+                                    descripcion = descripcion + data[row].descripcion
+                                }
+                                console.log(descripcion)
+                                infowindow.setContent(
+                                    descripcion);
+                                infowindow.open(map, newMarker);
+                            })
                         }
-                        console.log(descripcion)
-                        infowindow.setContent(
-                            descripcion);
-                        infowindow.open(map, newMarker);
-                    })
+                    })(newMarker, row));
+                    ray.push(newMarker);
                 }
-            })(newMarker, row));
-            ray.push(newMarker);
+            })
         }
-    })
-}
 
 
 ////FUNCTION PARA CUANDO CLICQUES EN EL MAPA ESTE SE VUELVA GRANDE
 function click_map() {
-    do {
-        var count = 0
-        $(document).on('click', '#maps', function () {
-            $(document).on('click', '.detail', function () {
-                count = 1
-            })
-            console.log("mapa");
-            $("#container").empty();
-            $("#container1").empty();
-            $("#fil").empty();
+            do {
+                var count = 0
+                $(document).on('click', '#maps', function () {
+                    $(document).on('click', '.detail', function () {
+                        count = 1
+                    })
+                    console.log("mapa");
+                    $("#container").empty();
+                    $("#container1").empty();
+                    $("#fil").empty();
 
-            $("#maps").append(
-                '<a id="fle" href=index.php?page=controller_shop&op=list><img id="flecha" src=view/images/flecha.png></a>'
-            )
-            $("#maps").css({ "width": "80%", "height": "40%" })
-            count = 1
+                    $("#maps").append(
+                        '<a id="fle" href=index.php?page=controller_shop&op=list><img id="flecha" src=view/images/flecha.png></a>'
+                    )
+                    $("#maps").css({ "width": "80%", "height": "40%" })
+                    count = 1
 
-        })
-    } while (count == 1);
-}
+                })
+            } while (count == 1);
+        }
 
 function pagination() {
 
 
-    $.ajax({
-        type: 'GET',
-        dataType: "json",
-        url: "module/shop/controller/controller_shop.php?op=count_pords"
-    })
-        .done(function (data) {
-            console.log(data)
-            console.log(data[0].total)
-            var number_products = data[0].total
-            pages = number_products / 3
-            console.log(pages)
-            $('#pagination').bootpag({
-                total: pages,
-                page: 1,
-                maxVisible: 3
-            }).on("page", function (event, num) {
-                console.log(num);
-                number = 3 * (num - 1)
-                $.ajax({
-                    type: 'GET',
-                    dataType: "json",
-                    url: "module/shop/controller/controller_shop.php?op=all&number=" + number,
-                })
+            $.ajax({
+                type: 'GET',
+                dataType: "json",
+                url: "module/shop/controller/controller_shop.php?op=count_pords"
+            })
+                .done(function (data) {
+                    console.log(data)
+                    console.log(data[0].total)
+                    var number_products = data[0].total
+                    pages = number_products / 3
+                    console.log(pages)
+                    $('#pagination').bootpag({
+                        total: pages,
+                        page: 1,
+                        maxVisible: 3
+                    }).on("page", function (event, num) {
+                        console.log(num);
+                        number = 3 * (num - 1)
+                        $.ajax({
+                            type: 'GET',
+                            dataType: "json",
+                            url: "module/shop/controller/controller_shop.php?op=all&number=" + number,
+                        })
 
-                    .done(function (data) {
-                        console.log(data);
+                            .done(function (data) {
+                                console.log(data);
 
-                        $('#list_products').empty();
+                                $('#list_products').empty();
 
-                        ajaxForSearch("module/shop/controller/controller_shop.php?op=all&number=" + number)
+                                ajaxForSearch("module/shop/controller/controller_shop.php?op=all&number=" + number)
 
-                    });
-            });//end on
-        });//enddone
+                            });
+                    });//end on
+                });//enddone
 
 
-}
+        }
 
 //FUNCION QUE REDIRECCIONA AL LOGIN
 function redirect_login() {
-    var url = "index.php?page=controller_login&op=list"
-    $(window).attr('location', url);
+            var url = "index.php?page=controller_login&op=list"
+            $(window).attr('location', url);
 
-}
+        }
 
 var likes = function (url, data) { //function/promise GENERAL 
 
-    // console.log(data)
-
-    return new Promise(function (resolve) {
-        // console.log(url)
         // console.log(data)
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: data
-        })
-            .done(function (data) {
-                resolve(data);
+
+        return new Promise(function (resolve) {
+            // console.log(url)
+            // console.log(data)
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: data
             })
-    })
-};
+                .done(function (data) {
+                    resolve(data);
+                })
+        })
+    };
 
-////FUNCION QUE HACE TODAS LAS ACCIONES DEL LIKE
-function like() {
-    //Entra cuando le das a un like
-    $(document).on('click', '.btn', function () {
-        // console.log('like');
+    ////FUNCION QUE HACE TODAS LAS ACCIONES DEL LIKE
+    function like() {
+        //Entra cuando le das a un like
+        $(document).on('click', '.btn', function () {
+            // console.log('like');
 
-        //cogemos el id del profucto al que le ha dado favorito
-        var cod_ref = $(this).attr('id');
-        // console.log(cod_ref)
+            //cogemos el id del profucto al que le ha dado favorito
+            var cod_ref = $(this).attr('id');
+            // console.log(cod_ref)
 
-        //nos devuelve el nombre del usuario en este momento
-        likes('module/shop/controller/controller_shop.php?op=user')
-            .then(function (name) {
-                // console.log(name)
+            //nos devuelve el nombre del usuario en este momento
+            likes('module/shop/controller/controller_shop.php?op=user')
+                .then(function (name) {
+                    // console.log(name)
 
-                //si hay algun usuario conectado entra
-                if (name !== "") {
-                    // console.log('entra if')
+                    //si hay algun usuario conectado entra
+                    if (name !== "") {
+                        // console.log('entra if')
 
-                    // console.log(cod_ref)
+                        // console.log(cod_ref)
 
 
-                    //cambiamos de color el corazon
-                    $('.' + cod_ref + '').toggleClass('btn-danger');
+                        //cambiamos de color el corazon
+                        $('.' + cod_ref + '').toggleClass('btn-danger');
 
-                    //le decimos que lo inserte en la tabla de favoritos
-                    likes('module/shop/controller/controller_shop.php?op=favorite', cod_ref)
-                        .then(function (data) {
-                            // console.log(data)
+                        //le decimos que lo inserte en la tabla de favoritos
+                        likes('module/shop/controller/controller_shop.php?op=favorite', cod_ref)
+                            .then(function (data) {
+                                // console.log(data)
 
-                            //si ya esta en latabla entrará
-                            if (data == "ya es favorito") {
-                                // console.log("entra if")
+                                //si ya esta en latabla entrará
+                                if (data == "ya es favorito") {
+                                    // console.log("entra if")
 
-                                ///lo borrará
-                                likes('module/shop/controller/controller_shop.php?op=del_favorite', cod_ref)
-                                    .then(function (data) {
-                                        // console.log(data)
+                                    ///lo borrará
+                                    likes('module/shop/controller/controller_shop.php?op=del_favorite', cod_ref)
+                                        .then(function (data) {
+                                            // console.log(data)
 
-                                    })
-                            }
-                        })
+                                        })
+                                }
+                            })
 
-                } else {
-                    redirect_login();
+                    } else {
+                        redirect_login();
+                    }
+                })
+
+        })
+
+    }
+
+    function paint_likes() {
+
+        ///observa cuales son los favoritos del usuario conectado ahora mismo
+        likes('module/shop/controller/controller_shop.php?op=show_likes')
+            .then(function (cod_fav) {
+                //  console.log(cod_fav)
+
+                //convierte los datos en array
+                var data_all = JSON.parse(cod_fav);
+                console.log(data_all)
+
+                ///para cada uno cambia el color (a rojo ya que en el ajaxforsearch esta puesto blanco)
+                for (row in data_all) {
+                    $('.' + data_all[row].cod_ref + '').toggleClass('btn-danger');
                 }
+
+
             })
 
-    })
+    }
 
-}
+    //funcion para saber que productos quieres
+    function cart() {
 
-function paint_likes() {
+        var prods = [];
 
-    ///observa cuales son los favoritos del usuario conectado ahora mismo
-    likes('module/shop/controller/controller_shop.php?op=show_likes')
-        .then(function (cod_fav) {
-            //  console.log(cod_fav)
+        ///entrara cuabdo hagas click en añadir al carrito
+        $(document).on('click', '.baddcart', function () {
+            // console.log("btnaddcart")
 
-            //convierte los datos en array
-            var data_all = JSON.parse(cod_fav);
-            console.log(data_all)
+            //cogemos la id de ese producto 
+            var id = this.getAttribute('id');
+            console.log(id)
 
-            ///para cada uno cambia el color (a rojo ya que en el ajaxforsearch esta puesto blanco)
-            for (row in data_all) {
-                $('.' + data_all[row].cod_ref + '').toggleClass('btn-danger');
-            }
+            ///vemos el $_SESION del user_name
+            likes('module/shop/controller/controller_shop.php?op=user')
+                .then(function (name) {
 
+                    // console.log(name)
 
-        })
+                    //Si el nombre no esta vacio es decir si esta logueado
+                    if (name !== "") {
 
-}
-
-//funcion para saber que productos quieres
-function cart() {
-
-    var prods = [];
-
-    ///entrara cuabdo hagas click en añadir al carrito
-    $(document).on('click', '.baddcart', function () {
-        // console.log("btnaddcart")
-
-        //cogemos la id de ese producto 
-        var id = this.getAttribute('id');
-        console.log(id)
-
-        ///vemos el $_SESION del user_name
-        likes('module/shop/controller/controller_shop.php?op=user')
-            .then(function (name) {
-
-                // console.log(name)
-
-                //Si el nombre no esta vacio es decir si esta logueado
-                if (name !== "") {
-            
-                    //guardamos en una variable el codigo del producto y el nombre del usuario
-                    //ya que como el nombre del usuario no se puede repetir
-                    //es mi clave primaria de la tabla usuarios y por lo tanto su id
+                        //guardamos en una variable el codigo del producto y el nombre del usuario
+                        //ya que como el nombre del usuario no se puede repetir
+                        //es mi clave primaria de la tabla usuarios y por lo tanto su id
                         var info = { cod_ref: id, id: name };
                         console.log(info)
 
                         // y guardamos esta informacion en la tabla  cart
                         likes('module/shop/controller/controller_shop.php?op=insert_cart', info)
                             .then(function (info) {
-                                
-                                //observamos que nos devuelva que todo esta correcto
-                                console.log(info)
-                            })
-
-                /// si no esta logueado
-                } else {
-
-                    ///cogemos la ip del usuario
-                    $.getJSON('https://api.ipify.org?format=json', function (data) {
-                        console.log(data.ip);
-
-                        ///y guardamos en la tabla la informacion del codigo de referencia del producto
-                        // y la ip del usuario
-                        var info = { cod_ref: id, id: data.ip };
-                        console.log(info)
-
-                        // y guardamos esta informacion en la tabla  cart
-                        likes('module/shop/controller/controller_shop.php?op=insert_cart', info)
-                            .then(function (info) {
 
                                 //observamos que nos devuelva que todo esta correcto
                                 console.log(info)
                             })
-                    })
 
-                }
+                        /// si no esta logueado
+                    } else {
 
-                //añade a una array el id del producto
-                prods.push(id)
-                // console.log(prods)
+                        ///cogemos la ip del usuario
+                        $.getJSON('https://api.ipify.org?format=json', function (data) {
+                            console.log(data.ip);
+
+                            ///y guardamos en la tabla la informacion del codigo de referencia del producto
+                            // y la ip del usuario
+                            var info = { cod_ref: id, id: data.ip };
+                            console.log(info)
+
+                            // y guardamos esta informacion en la tabla  cart
+                            likes('module/shop/controller/controller_shop.php?op=insert_cart', info)
+                                .then(function (info) {
+
+                                    //observamos que nos devuelva que todo esta correcto
+                                    console.log(info)
+                                })
+                        })
+
+                    }
+
+                    //añade a una array el id del producto
+                    prods.push(id)
+                    // console.log(prods)
 
 
-                // Guardo el objeto como un string en localstorage
-                localStorage.setItem('prods', JSON.stringify(prods));
+                    // Guardo el objeto como un string en localstorage
+                    localStorage.setItem('prods', JSON.stringify(prods));
 
-                //lo recogemos
-                var guardado = localStorage.getItem('prods');
+                    //lo recogemos
+                    var guardado = localStorage.getItem('prods');
 
-                //y si necesitamos la string recogemos los datos parseados
-                // console.log(JSON.parse(guardado));
+                    //y si necesitamos la string recogemos los datos parseados
+                    // console.log(JSON.parse(guardado));
 
-                var storage = { prods: guardado };
-
-
-                ///le decimos que los guarde tambien en $session
-                likes('module/shop/controller/controller_shop.php?op=cart', storage)
-                    .then(function () {
-                    })
-
-            })
-    })
+                    var storage = { prods: guardado };
 
 
-}
+                    ///le decimos que los guarde tambien en $session
+                    likes('module/shop/controller/controller_shop.php?op=cart', storage)
+                        .then(function () {
+                        })
+
+                })
+        })
+
+
+    }

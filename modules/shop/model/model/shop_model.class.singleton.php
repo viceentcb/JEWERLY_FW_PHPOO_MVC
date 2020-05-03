@@ -22,4 +22,9 @@ class shop_model
     {
         return $this->bll->list_BLL($number);
     }
+
+    public function detail_model($cod_ref, $type)
+    {
+        return $this->bll->detail_BLL($cod_ref, $type);
+    }
 }

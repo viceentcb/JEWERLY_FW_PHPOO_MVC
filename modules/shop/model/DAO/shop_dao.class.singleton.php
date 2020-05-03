@@ -19,5 +19,16 @@ class shop_dao {
         return $db->listar($stmt);
     }
 
+    public function detail($db, $cod_ref, $type) {
+        $sql = "SELECT * FROM joya WHERE cod_ref='$cod_ref' UNION SELECT * FROM joya WHERE tipo='$type' AND cod_ref<>'$cod_ref'";
+        $stmt = $db->ejecutar($sql);
+        return $db->listar($stmt);
+    }
+
+    public function views($db, $cod_ref) {
+        $sql = "UPDATE joya set views=(views+1) WHERE cod_ref= '$cod_ref'";
+        return $db->ejecutar($sql);
+    }
+
 
 }
