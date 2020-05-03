@@ -38,7 +38,7 @@ define('MODULES_PATH', SITE_ROOT . 'modules/');
 define('VIEW_PATH', SITE_ROOT . 'view/');
 
 //VIEW
-define('VIEW_JQUERY_PATH', SITE_ROOT . 'view/jquery/');
+define('VIEW_JQUERY_PATH', SITE_PATH . 'view/jquery/');
 
 //INC
 define('VIEW_PATH_INC', SITE_ROOT . 'view/inc/');

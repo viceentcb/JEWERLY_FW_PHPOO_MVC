@@ -1,15 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <functions>
+
     <function>
         <name>shop</name>
         <uri></uri>
     </function>
+
     <function>
         <name>list</name>
         <uri></uri>
     </function>
+
       <function>
         <name>detail</name>
         <uri></uri>
     </function>
+
+    <function>
+        <name>filter</name>
+        <uri></uri>
+    </function>
+
+    <function>
+        <name>count_pords</name>
+        <uri></uri>
+    </function>
+
+    <function>
+        <name>search</name>
+        <uri></uri>
+    </function>
+
 </functions>

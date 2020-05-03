@@ -122,6 +122,7 @@ function handlerfunction($module, $obj, $URI_function)
 {
 
     if ($module=='menu'){
+
         $functions = simplexml_load_file(VIEW_PATH . $module . "/resources/function.xml");
         $exist = false;
     }else{

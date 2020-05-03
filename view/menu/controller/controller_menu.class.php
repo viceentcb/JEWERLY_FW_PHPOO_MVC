@@ -19,10 +19,30 @@ class controller_menu
 	}
 
 	function slider()
-
 	{
 		$json = array();
 		$json = loadModel(MODEL_MENU, "menu_model", "slider");
+		echo json_encode($json);
+	}
+
+	function type()
+	{
+		$json = array();
+		$json = loadModel(MODEL_MENU, "menu_model", "type_model", $_POST['data']);
+		echo json_encode($json);
+	}
+
+	function brand()
+	{
+		$json = array();
+		$json = loadModel(MODEL_MENU, "menu_model", "brand_model", $_POST['data']);
+		echo json_encode($json);
+	}
+
+	function autocomplete()
+	{
+		$json = array();
+		$json = loadModel(MODEL_MENU, "menu_model", "auto_model", $_POST['data']);
 		echo json_encode($json);
 	}
 }

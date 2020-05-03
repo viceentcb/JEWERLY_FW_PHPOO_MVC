@@ -27,4 +27,22 @@ class shop_model
     {
         return $this->bll->detail_BLL($cod_ref, $type);
     }
+
+    public function filter_model($checks, $order)
+    {
+        return $this->bll->filter_BLL($checks, $order);
+    }
+
+    public function count_model()
+    {
+        return $this->bll->count_BLL();
+    }
+
+
+    public function search_model($search)
+    {
+        return $this->bll->search_BLL($search);
+    }
+
+ 
 }

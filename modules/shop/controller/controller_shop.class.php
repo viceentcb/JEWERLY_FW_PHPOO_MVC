@@ -29,12 +29,37 @@ class controller_shop
 			echo json_encode($json);	
 	}
 
-	//funcion para el detail
+	//funcion para el detail y para sumar las visitas
 	function detail()
 	{	
 			$json = array();
 			$json = loadModel(MODEL_SHOP, "shop_model", "detail_model", $_POST['cod_ref'], $_POST['tipo']);
 			echo json_encode($json);	
 	}
+
+	///funcion para pintar los filtros generales
+	function filter()
+	{		
+		
+			$json = array();
+			$json = loadModel(MODEL_SHOP, "shop_model", "filter_model",$_POST['checks'], $_POST['order']);
+			echo json_encode($json);	
+	}
+
+
+	function count_pords()
+	{		
+			$json = array();
+			$json = loadModel(MODEL_SHOP, "shop_model", "count_model");
+			echo json_encode($json);	
+	}
+
+	function search()
+	{		
+			$json = array();
+			$json = loadModel(MODEL_SHOP, "shop_model", "search_model", $_POST['data']);
+			echo json_encode($json);	
+	}
+
 
 }

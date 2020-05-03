@@ -8,4 +8,16 @@
         <name>slider</name>
         <uri></uri>
     </function>
+    <function>
+        <name>type</name>
+        <uri></uri>
+    </function>
+    <function>
+        <name>brand</name>
+        <uri></uri>
+    </function>
+    <function>
+        <name>autocomplete</name>
+        <uri></uri>
+    </function>
 </functions>

@@ -23,15 +23,29 @@ class shop_bll
 
     public function list_BLL($number)
     {
-        return $this->dao->list($this->db,$number);
+        return $this->dao->list($this->db, $number);
     }
 
     public function detail_BLL($cod_ref, $type)
     {
-        $this->dao->views($this->db,$cod_ref);
-        return $this->dao->detail($this->db,$cod_ref, $type);
-
+        if ($this->dao->views($this->db, $cod_ref)) {
+            return $this->dao->detail($this->db, $cod_ref, $type);
+        }
     }
 
+    public function filter_BLL($checks, $order)
+    {
+        return $this->dao->filter($this->db, $checks, $order);
+    }
 
+    public function count_BLL()
+    {
+        return $this->dao->count_prods($this->db);
+    }
+
+    public function search_BLL($search)
+    {
+        return $this->dao->search($this->db, $search);
+    }
+ 
 }

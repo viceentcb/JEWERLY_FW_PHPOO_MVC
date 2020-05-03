@@ -2,11 +2,11 @@ $(document).ready(function () {
     // console.log("menu");
     slider();
     // click_car();
-    // offer_type();
-    // offer_brand();
-    // autocomplete();
-    // enter();
-    // click_search()
+    offer_type();
+    offer_brand();
+    autocomplete();
+    enter();
+    click_search()
 
 })
 
@@ -32,14 +32,14 @@ var menu = function (url, data) { //function/promise GENERAL
 ///FUNCION PARA IMAGENES DEL SLIDER
 function slider() {
 
-    var info= {module:'menu',function:'slider'}
+    var info = { module: 'menu', function: 'slider' }
 
     menu(amigable("?"), info)
         .then(function (data) {
-            
+
 
             // console.log(data)
-            var data=(JSON.parse(data));
+            var data = (JSON.parse(data));
             $('<div></div>').attr('class', "carousel-item active").appendTo('.carousel-inner').html(
                 '<img src="' + data[1].route + '" class="car" alt="...">'
             );
@@ -64,14 +64,16 @@ function click_car() {
 ///FUNCION PARA QUE AYUDE CON LOS TIPOS
 function offer_type() {
     // console.log("offer_type")
-    br = ""
-    $.ajax({
-        type: "GET",
-        dataType: "json",
-        url: "module/menu/controller/controller_menu.php?op=type&brand=" + br
-    })
-        .done(function (data) {
-            // console.log(data);
+    br = "where 1=1"
+
+    var info = { module: 'menu', function: 'type', data: br }
+
+    menu(amigable("?"), info)
+        .then(function (data) {
+
+            console.log(data)
+            data = JSON.parse(data)
+            console.log(data)
             $("#type").empty();
 
             $("#type").append(
@@ -94,19 +96,20 @@ function offer_type() {
         console.log("type=" + type)
 
         if ((brand === "") || (brand == 0)) {
-            br = "";
+            br = "where 1=1";
             console.log(br);
         } else {
             br = ' where marca = "' + brand + '" '
             console.log(br);
         }
 
-        $.ajax({
-            type: "GET",
-            dataType: "json",
-            url: "module/menu/controller/controller_menu.php?op=type&brand=" + br
-        })
-            .done(function (data) {
+
+        var info = { module: 'menu', function: 'type', data: br }
+
+        menu(amigable("?"), info)
+            .then(function (data) {
+                data = JSON.parse(data);
+
                 console.log(data);
                 $("#type").empty();
 
@@ -128,13 +131,16 @@ function offer_type() {
 
 ///FUNCION PARA QUE AYUDE CON LAS MARCAS
 function offer_brand() {
-    var ty = ""
-    $.ajax({
-        type: "GET",
-        dataType: "json",
-        url: "module/menu/controller/controller_menu.php?op=brand&type=" + ty
-    })
-        .done(function (data) {
+    var ty = "where 1=1"
+
+
+
+    var info = { module: 'menu', function: 'brand', data: ty }
+
+    menu(amigable("?"), info)
+        .then(function (data) {
+
+            data = JSON.parse(data);
             // console.log(data);
             $("#brand").empty();
 
@@ -160,18 +166,18 @@ function offer_brand() {
         console.log("type=" + type)
 
         if ((type === "") || (type == 0)) {
-            ty = "";
+            ty = "where 1=1";
             console.log(ty);
         } else {
             ty = ' where tipo = "' + type + '" '
             console.log(ty);
         }
-        $.ajax({
-            type: "GET",
-            dataType: "json",
-            url: "module/menu/controller/controller_menu.php?op=brand&type=" + ty
-        })
-            .done(function (data) {
+        var info = { module: 'menu', function: 'brand', data: ty }
+
+        menu(amigable("?"), info)
+            .then(function (data) {
+
+                data = JSON.parse(data);
                 console.log(data);
                 $("#brand").empty();
 
@@ -217,12 +223,12 @@ function autocomplete() {
             aut = ''
             console.log(aut);
         }
-        $.ajax({
-            type: "GET",
-            dataType: "json",
-            url: "module/menu/controller/controller_menu.php?op=autocomplete&auto=" + aut
-        })
-            .done(function (data) {
+
+        var info = { module: 'menu', function: 'autocomplete', data: aut }
+
+        menu(amigable("?"), info)
+            .then(function (data) {
+data=JSON.parse(data)
                 console.log(data)
                 var name = []
                 for (row in data) {
@@ -255,7 +261,9 @@ function click_search() {
         localStorage.setItem('typ', type);
         localStorage.setItem('bra', brand);
         localStorage.setItem('pro', product);
-        $(window).attr('location', 'index.php?page=controller_shop&op=list')
+
+        $(window).attr('location', amigable('?module=shop'))
+
     })
 }
 
@@ -275,7 +283,7 @@ function enter() {
             localStorage.setItem('typ', type);
             localStorage.setItem('bra', brand);
             localStorage.setItem('pro', product);
-            $(window).attr('location', 'index.php?page=controller_shop&op=list')
+            $(window).attr('location', amigable('?module=shop'))
         }
     });
 }
