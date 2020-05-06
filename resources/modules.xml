@@ -13,6 +13,10 @@
         <uri>shop</uri>
     </module>
     <module>
+        <name>login</name>
+        <uri>login</uri>
+    </module>
+    <module>
         <name>menu</name>
         <uri>menu</uri>
     </module>

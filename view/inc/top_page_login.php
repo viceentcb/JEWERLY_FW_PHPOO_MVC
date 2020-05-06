@@ -7,16 +7,16 @@
 
 <body>
    <!-- gallery  para que no choquen librerias-->
-   <script src="view/js/lightbox-plus-jquery.min.js"></script>
+   <script src="<?php echo JS_PATH ?>lightbox-plus-jquery.min.js"></script>
    <!-- //gallery -->
    
 
    
 
-   <script type="text/javascript" src="view/lang/translate.js"></script>
+   <!-- <script type="text/javascript" src="view/lang/translate.js"></script> -->
 
-   <link href="view/css/style.css" rel="stylesheet" type="text/css" />
-   <!-- <script src="module/login/model/login.js"></script> -->
+   <link href="<?php echo CSS_PATH ?>style.css" rel="stylesheet" type="text/css" />
+   <script src="<?php echo JS_VIEW_LOGIN ?>login.js"></script>
 
 </body>
 

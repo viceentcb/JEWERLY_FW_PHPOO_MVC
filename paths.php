@@ -77,6 +77,14 @@ define('BLL_SHOP', SITE_ROOT . 'modules/shop/model/BLL/');
 define('MODEL_SHOP', SITE_ROOT . 'modules/shop/model/model/');
 define('JS_VIEW_SHOP', SITE_PATH . 'modules/shop/view/js/');
 
+//MODEL_LOGIN
+// define('UTILS_HOME', SITE_ROOT . 'modules/home/utils/');
+define('MODEL_PATH_LOGIN', SITE_ROOT . 'modules/login/model/');
+define('DAO_LOGIN', SITE_ROOT . 'modules/login/model/DAO/');
+define('BLL_LOGIN', SITE_ROOT . 'modules/login/model/BLL/');
+define('MODEL_LOGIN', SITE_ROOT . 'modules/login/model/model/');
+define('JS_VIEW_LOGIN', SITE_PATH . 'modules/login/view/js/');
+
 
 //MENU
 // define('UTILS_HOME', SITE_ROOT . 'modules/home/utils/');
