@@ -41,7 +41,7 @@ class login_dao
     }
     public function mail($db)
     {
-        $sql = "SELECT mail FROM user";
+        $sql = "SELECT mail FROM user WHERE cod_user=user_name";
         $stmt = $db->ejecutar($sql);
         return $db->listar($stmt);
     }
