@@ -33,4 +33,9 @@ class home_model
     {
         return $this->bll->views_BLL($limit);
     }
+
+    public function activate_user($token)
+    {
+        return $this->bll->activate_user_BLL($token);
+    }
 }

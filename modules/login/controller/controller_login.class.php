@@ -23,14 +23,31 @@ class controller_login
 
 	function id_mail()
 	{
-	
+
 		parse_str($_POST['data'], $matriz);
 
-		$data=array($matriz, $_POST['prov']);
+		$data = array($matriz, $_POST['prov']);
 
 
 		$json = array();
 		$json = loadModel(MODEL_LOGIN, "login_model", "id_mail_model", $data);
-		echo json_encode($json);
+
+		if (($json == "This user name is alredy in use") || ($json == "This mail is alredy in use" )) {
+			echo json_encode($json);
+		} else {
+
+			$arrArgument = array(
+				'type' => 'alta',
+				'token' => $json,
+				'inputName' => $matriz['user_name_reg'],
+				'inputEmail' => $matriz['mail'],
+			);
+			try{
+				echo enviar_email($arrArgument);
+			} catch (Exception $e) {
+				echo "<div class='alert alert-error'>Server error. Try later...</div>";
+			}
+
+		}
 	}
 }

@@ -30,7 +30,8 @@ class login_dao
         $sql="INSERT INTO user (cod_user, user_name, mail, password, avatar, token) 
         VALUES('$user_name','$user_name','$mail','$password','$avatar', '$token')";
         
-        return $db->ejecutar($sql);
+       $db->ejecutar($sql);
+       return $token;
     }
 
     public function id($db)

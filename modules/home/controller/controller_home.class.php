@@ -21,29 +21,29 @@ class controller_home
 
 	function gif()
 	{
-		
-			$json = array();
-			$json = loadModel(MODEL_HOME, "home_model", "GIF_model");
-			echo json_encode($json);
-		
+		$json = array();
+		$json = loadModel(MODEL_HOME, "home_model", "GIF_model");
+		echo json_encode($json);
 	}
 
 	function products()
 	{
-		
-			$json = array();
-			$json = loadModel(MODEL_HOME, "home_model", "prods_model", $_POST['data']);
-			echo json_encode($json);
-		
+		$json = array();
+		$json = loadModel(MODEL_HOME, "home_model", "prods_model", $_POST['data']);
+		echo json_encode($json);
 	}
 
 	function click_prod()
 	{
-		
-			$json = array();
-			$json = loadModel(MODEL_HOME, "home_model", "views_model", $_POST['data']);
-			echo json_encode($json);
-		
-	}
 
+		$json = array();
+		$json = loadModel(MODEL_HOME, "home_model", "views_model", $_POST['data']);
+		echo json_encode($json);
+	}
+	function active_user()
+	{
+			$json = loadModel(MODEL_HOME, "home_model", "activate_user", $_GET['param']);
+			header('Location: ' . SITE_PATH);
+
+	}
 }

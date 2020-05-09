@@ -30,7 +30,6 @@ function handlerRouter()
     if (!empty($_GET['module'])) {
 
 
-
         //si viene de algun js entrara de aqui ya que se lo pasamos por POST
         if (!empty($_POST['module'])) {
 
@@ -40,8 +39,14 @@ function handlerRouter()
             // Si viene del menu entrará aqui ya que se lo pasa por $_GET
         } else {
 
+      
             $URI_module = $_GET['module'];
+      
 
+            // $URI_module = explode("/", $URI_module);
+
+            // print_r( $URI_module[0]);
+            // die();  
         }
     } else {
 

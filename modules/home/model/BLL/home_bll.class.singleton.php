@@ -35,4 +35,9 @@ class home_bll
     {
         return $this->dao->U_view_prod($this->db, $cod_ref);
     }
+
+    public function activate_user_BLL($token)
+    {
+        return $this->dao->U_activate($this->db, $token);
+    }
 }

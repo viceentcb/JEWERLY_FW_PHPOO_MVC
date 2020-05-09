@@ -27,7 +27,10 @@ class home_dao {
 
     public function U_view_prod($db, $cod_ref) {
         $sql = "UPDATE joya set views=(views+1) WHERE cod_ref= '$cod_ref'";
-        $stmt = $db->ejecutar($sql);
+        return $db->ejecutar($sql);
     }
-
+    public function U_activate($db, $token) {
+        $sql = "UPDATE user set activate=true WHERE token= '$token'";
+        return $db->ejecutar($sql);
+    }
 }

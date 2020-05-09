@@ -80,9 +80,7 @@ class login_bll
 
 
         //si todo esta correcto registrará al usuario
-        if($rlt=='Correct'){
             return $this->dao->register($this->db, $data[0]);
-
-        }
+        
     }
 }

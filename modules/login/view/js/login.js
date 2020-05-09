@@ -341,41 +341,55 @@ function all_register(userinfo, prov) {
     //le indicamos a la promesa/funcion general que registre al usuario
 
 
-    var info = { module: 'login', function: 'id_mail', data: userinfo, prov:'reg' }
+    var info = { module: 'login', function: 'id_mail', data: userinfo, prov: 'reg' }
 
-    login_in(amigable("?"), info).then(function (data) {
-        console.log(data);
+    login_in(amigable("?"), info)
+        .then(function (data) {
+
+            console.log(data);
 
 
-        // var info = { module: 'login', function: 'register', data: userinfo }
+            if((JSON.parse(data)['message'])=='Queued. Thank you.'){
+                // console.log('hola')
+                toastr.success("We sent the email, please check your inbox to activate your account.", "Email sent.");
+                window.setTimeout(function(){
+                    document.location.href = "/FRAMEWORK_JOYAS/";
+                },2000)
 
-        // login_in(amigable("?"), info).then(function (data) {
-        //     console.log(data);
+            }else{
+                toastr.error("A failure has been made when sending your message","Email Not Sent.")
+            }
 
-        ///si se registra correctamente
-        // if (data == '"correct"') {
+            
+            // var info = { module: 'login', function: 'register', data: userinfo }
 
-        //     if (prov == "register") {
-        //         redirect_home();
-        //     } else {
-        //         redirect_cart();
+            // login_in(amigable("?"), info).then(function (data) {
+            //     console.log(data);
 
-        //     }
+            ///si se registra correctamente
+            // if (data == '"correct"') {
 
-        //     ///como el nombre del usuario es un id en la tabla no se puede repetir
-        //     //por lo tanto entrara aqui
-        // } else if (data == '"not correct"') {
+            //     if (prov == "register") {
+            //         redirect_home();
+            //     } else {
+            //         redirect_cart();
 
-        //     if (prov == "login") {
-        //         document.getElementById('e_user_name_reg').innerHTML = "This name is already in use";
-        //     } else {
-        //         localStorage.setItem('e_reg', "This name is already in use");
-        //         error_reg();
-        //     }
-        // } else {
-        //     alert('ERROR')
-        // }
-    // })
+            //     }
+
+            //     ///como el nombre del usuario es un id en la tabla no se puede repetir
+            //     //por lo tanto entrara aqui
+            // } else if (data == '"not correct"') {
+
+            //     if (prov == "login") {
+            //         document.getElementById('e_user_name_reg').innerHTML = "This name is already in use";
+            //     } else {
+            //         localStorage.setItem('e_reg', "This name is already in use");
+            //         error_reg();
+            //     }
+            // } else {
+            //     alert('ERROR')
+            // }
+        // })
 
 })
 
