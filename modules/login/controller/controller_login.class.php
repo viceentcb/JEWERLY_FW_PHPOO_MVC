@@ -32,7 +32,7 @@ class controller_login
 		$json = array();
 		$json = loadModel(MODEL_LOGIN, "login_model", "id_mail_model", $data);
 
-		if (($json == "This user name is alredy in use") || ($json == "This mail is alredy in use" )) {
+		if (($json == "This user name is alredy in use") || ($json == "This mail is alredy in use")) {
 			echo json_encode($json);
 		} else {
 
@@ -42,12 +42,43 @@ class controller_login
 				'inputName' => $matriz['user_name_reg'],
 				'inputEmail' => $matriz['mail'],
 			);
-			try{
+			try {
 				echo enviar_email($arrArgument);
 			} catch (Exception $e) {
 				echo "<div class='alert alert-error'>Server error. Try later...</div>";
 			}
+		}
+	}
 
+
+	function mail()
+	{
+
+		if (isset($_GET['param'])) {
+			parse_str($_POST['data'], $matriz);
+
+
+			$json = array();
+			$json = loadModel(MODEL_LOGIN, "login_model", "mail_model", $matriz['mail']);
+
+
+			if ($json === false) {
+				echo ('error');
+			} else {
+
+				$arrArgument = array(
+					'type' => 'changepass',
+					'token' => $json,
+					'inputEmail' => $matriz['mail'],
+				);
+				try {
+					echo enviar_email($arrArgument);
+				} catch (Exception $e) {
+					echo "<div class='alert alert-error'>Server error. Try later...</div>";
+				}
+			}
+		} else {
+			echo('hola');
 		}
 	}
 }

@@ -38,7 +38,7 @@ class login_bll
                 //si encuentra un nombre de usuario igual
                 if (($id[$i]['cod_user']) == ($data[0]['user_name_reg'])) {
                     $res = true;
-                   return 'This user name is alredy in use';
+                    return 'This user name is alredy in use';
                 } else {
                     $res = false;
                     $rlt = 'Correct';
@@ -80,7 +80,35 @@ class login_bll
 
 
         //si todo esta correcto registrará al usuario
-            return $this->dao->register($this->db, $data[0]);
-        
+        return $this->dao->register($this->db, $data[0]);
+    }
+
+
+    public function mail_BLL($data)
+    {
+        //obtenemos todos los mail que hay en la tabla user
+        $mail = $this->dao->mail($this->db);
+
+        $res = false;
+
+        // y comprobamos que exista uno que sea igual
+        for ($i = 0; $i < count($mail); $i++) {
+
+            if ($res == false) {
+                //si encuentra un mail igual
+                if (($mail[$i]['mail']) == ($data)) {
+                    $res = true;
+                    return $this->dao->u_token($this->db, $data);
+                } else {
+                    $res = false;
+                    return false;
+                }
+            }
+        }
+
+        if(count($mail)==0){
+            return false;
+        }
+
     }
 }

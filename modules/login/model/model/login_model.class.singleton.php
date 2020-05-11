@@ -22,5 +22,11 @@ class login_model
         return $this->bll->id_mail_BLL($data);
     }
 
+
+    public function mail_model($mail)
+    {
+        return $this->bll->mail_BLL($mail);
+    }
+
  
 }

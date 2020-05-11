@@ -9,4 +9,14 @@
         <name>id_mail</name>
         <uri></uri>
     </function>
+
+    <function>
+        <name>mail</name>
+        <uri></uri>
+    </function>
+
+    <function>
+        <name>changepass</name>
+        <uri></uri>
+    </function>
 </functions>

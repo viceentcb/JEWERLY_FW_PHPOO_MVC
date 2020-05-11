@@ -1,14 +1,17 @@
 $(document).ready(function () {
     // console.log("READY")
     logout();
-    in_login()
+    // in_login()
     in_register();
+    in_recover();
+    p_mail();
+    in_mail();
+
 });
 
 ////////////////////////////////////IMPORTANTE/////////////////////
 //UTILIZAMOS LA MISMA ESTRUCTURA PARA REGISTRAR AL USUARIO Y PARA LOGUEARLO DESDE EL CART/////
 ///POR ESO SOLO EXPLICAMOS EL LOGIN//////
-
 
 
 function validate_register() {
@@ -349,49 +352,19 @@ function all_register(userinfo, prov) {
             console.log(data);
 
 
-            if((JSON.parse(data)['message'])=='Queued. Thank you.'){
+            if ((JSON.parse(data)['message']) == 'Queued. Thank you.') {
                 // console.log('hola')
                 toastr.success("We sent the email, please check your inbox to activate your account.", "Email sent.");
-                window.setTimeout(function(){
+                window.setTimeout(function () {
                     document.location.href = "/FRAMEWORK_JOYAS/";
-                },2000)
+                }, 2000)
 
-            }else{
-                toastr.error("A failure has been made when sending your message","Email Not Sent.")
+            } else {
+                toastr.error("A failure has been made when sending your message", "Email Not Sent.")
             }
 
-            
-            // var info = { module: 'login', function: 'register', data: userinfo }
 
-            // login_in(amigable("?"), info).then(function (data) {
-            //     console.log(data);
-
-            ///si se registra correctamente
-            // if (data == '"correct"') {
-
-            //     if (prov == "register") {
-            //         redirect_home();
-            //     } else {
-            //         redirect_cart();
-
-            //     }
-
-            //     ///como el nombre del usuario es un id en la tabla no se puede repetir
-            //     //por lo tanto entrara aqui
-            // } else if (data == '"not correct"') {
-
-            //     if (prov == "login") {
-            //         document.getElementById('e_user_name_reg').innerHTML = "This name is already in use";
-            //     } else {
-            //         localStorage.setItem('e_reg', "This name is already in use");
-            //         error_reg();
-            //     }
-            // } else {
-            //     alert('ERROR')
-            // }
-        // })
-
-})
+        })
 
 }
 
@@ -444,6 +417,125 @@ function in_register() {
             console.log("entra register");
 
             register();
+        }
+    });
+}
+
+
+function p_mail() {
+    $('#passw').on("click", function () {
+
+        $("#login").empty()
+        $("#register").empty()
+
+
+        $("#mail").append(
+            '<form autocomplete="on" method="post" name="r_mail" id="r_mail">' +
+
+
+            '<strong> <label for="mail"> Mail</label> </strong>' +
+            '<input name="mail" id="mail" type="text" placeholder="Mail" value="" />' +
+            '<p>' +
+            '<font color="red">' +
+            '<span id="e_mail" class="styerror"></span>' +
+            '</font>' +
+            '</p>' +
+
+            '<input id="i_mail" name="i_mail" type="button" value="Recover password" />' +
+            '</br></br >' +
+            '</form >'
+        );
+    })
+}
+
+
+function validate_mail() {
+    ////MAIL
+    //regular expresion of mail
+    var mail = /^[a-zA-Z0-9_\.\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+$/;
+
+    //comprobamos que haya escrito
+    if (document.r_mail.mail.value.length === 0) {
+        document.getElementById('e_mail').innerHTML = "You must write mail";
+        document.r_mail.mail.focus();
+        mail_ = 'false'
+
+        //comprobamos que la contraseña tenga al menos 6 caracteres
+    } else if (!mail.test(document.r_mail.mail.value)) {
+        document.getElementById('e_mail').innerHTML = "Invalid mail";
+        document.r_mail.mail.focus();
+        mail_ = 'false'
+
+        //todo correcto
+    } else {
+        document.getElementById('e_mail').innerHTML = "";
+        mail_ = 'true'
+    }
+
+
+    var check = 'false'
+
+    if (mail_ != 'false') {
+        check = 'true'
+    }
+    console.log('check= ' + check)
+
+    return check
+
+    ///END MAIL
+}
+
+function in_mail() {
+
+    $(document).on('click', '#i_mail', function () {
+
+        if (validate_mail() != 'false') {
+
+            //cogemos la informacion del formulario
+            var userinfo = $('#r_mail').serialize();
+
+
+            var info = { module: 'login', function: 'mail', data: userinfo }
+
+            login_in(amigable("?"), info)
+                .then(function (data) {
+
+                    console.log(data);
+
+                    if (data == 'error') {
+                        document.getElementById('e_mail').innerHTML = "This email does not exist";
+                    }else if(data == 'hola'){
+                        alert();
+                    } else if ((JSON.parse(data)['message']) == 'Queued. Thank you.') {
+                        // console.log('hola')
+                        toastr.success("We sent the email, please check your inbox to activate your account.", "Email sent.");
+                        window.setTimeout(function () {
+                            document.location.href = "/FRAMEWORK_JOYAS/";
+                        }, 2000)
+
+                    } else {
+                        toastr.error("A failure has been made when sending your message", "Email Not Sent.")
+                    }
+
+
+                })
+
+
+        }
+    })
+}
+
+
+//FUNCION QUE ENTRE AL RECOVER PASSWORD TANTO SI LE DAS A SUBMIT COMO A ENTER EN EL TECLADO
+function in_recover() {
+    $(document).on('click', '#rec_passw', function () {
+        console.log("entra pass");
+    })
+
+    $(document).on('click', '#form_password', function () {
+        // console.log("clickpass")
+        if (e.which == 13) {
+            console.log("entra  LOGIN");
         }
     });
 }

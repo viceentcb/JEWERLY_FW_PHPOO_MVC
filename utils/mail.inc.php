@@ -16,11 +16,11 @@ function enviar_email($arr)
                 $body = 'Gracias por unirte a nuestra aplicaci&oacute;n<br> Para finalizar el registro, pulsa '.    $ruta ;
                 break;
 
-            // case 'changepass':
-            //     $subject = 'Tu Nuevo Password en Ohana dogs<br>';
-            //     $ruta = '<a href="' . amigable("?module=login&function=changepass&aux=" . $arr['token'], true) . '">aqu&iacute;</a>';
-            //     $body = 'Para recordar tu password pulsa ' . $ruta;
-            //     break;
+            case 'changepass':
+                $subject = 'Tu Nuevo Password en Jewerly<br>';
+                $ruta = '<a href="' . amigable("?module=login&function=mail&param=" . $arr['token'], true) . '">aqu&iacute;</a>';
+                $body = 'Para recordar tu password pulsa ' . $ruta;
+                break;
 
         case 'contact':
             $subject = 'Tu Petici&oacute;n a Ohana_dogs ha sido enviada<br>';
